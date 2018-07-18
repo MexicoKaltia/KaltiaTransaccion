@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kaltia.kaltiatransaccion.mail.service.ServiceHora;
 import com.kaltia.kaltiatransaccion.mail.service.ServiceMail;
+import com.kaltia.kaltiatransaccion.mail.vo.VOHora;
 import com.kaltia.kaltiatransaccion.mail.vo.VOMail;
 
 @RestController
@@ -27,8 +29,10 @@ public class WSMail {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public String getHora() {
-		return "hora:"+serviceHora.hora(); 
+	@ResponseBody
+	public VOHora getHora() {
+		return new VOHora(serviceHora.hora());
+		//return "hora:"+serviceHora.hora(); 
 	}
 	
 	@RequestMapping(

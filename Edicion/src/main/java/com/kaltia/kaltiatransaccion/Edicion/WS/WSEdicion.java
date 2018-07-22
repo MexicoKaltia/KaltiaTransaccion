@@ -15,6 +15,7 @@ public class WSEdicion {
 //	@Autowired
 //	VOStatus voStatus;
 	
+	//@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz"})
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
             method = RequestMethod.POST, path = "/{modelo}/{seccion}",  consumes = "application/json", produces = "application/json")

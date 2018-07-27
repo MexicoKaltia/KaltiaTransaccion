@@ -41,7 +41,8 @@ public class WSEdicion {
 		
 	}
 	
-	@CrossOrigin(origins = "http://localhost:7879")
+//	@CrossOrigin(origins = "http://localhost:7879")
+	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
             method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
 //	 @PostMapping("/fileUpload")

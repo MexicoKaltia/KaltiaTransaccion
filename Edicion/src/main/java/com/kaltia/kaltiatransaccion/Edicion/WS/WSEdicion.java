@@ -3,14 +3,12 @@ package com.kaltia.kaltiatransaccion.Edicion.WS;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,13 +38,17 @@ public class WSEdicion {
 		//return voStatus;
 		
 	}
-	
+/* Metodo por RequestMapping */	
 //	@CrossOrigin(origins = "http://localhost:7879")
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
-            method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
+            method = RequestMethod.POST, path = "/fileUpload")//,  consumes = "multipart/form-data", produces = "application/json")
+	/* Metodo por PostMapping */
 //	 @PostMapping("/fileUpload")
-	   public ResponseEntity<Object> fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
+	/* Metodo por POST */
+	   public ResponseEntity<Object> fileUpload(@RequestBody MultipartFile uploadfile){
+//		public VOStatus fileUpload(@RequestBody MultipartFile uploadfile){
+//		public VOStatus fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
 	   try {
 		    // Get the filename and build the local file path (be sure that the 
 		    // application have write permissions on such directory)
@@ -59,12 +61,14 @@ public class WSEdicion {
 		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
 		    stream.write(uploadfile.getBytes());
 		    stream.close();
+		    System.out.println("Exito");
 		  }
 		  catch (Exception e) {
 		    System.out.println(e.getMessage());
 		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		    return new VOStatus(99, "fallo");
 		  }
-		  
+//	      return new VOStatus(00, "ExitoFileUpload");
 		  return new ResponseEntity<>(HttpStatus.OK);
 		} // method uploadFile}
 }

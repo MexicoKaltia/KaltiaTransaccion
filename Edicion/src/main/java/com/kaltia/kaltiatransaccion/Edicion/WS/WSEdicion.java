@@ -39,14 +39,14 @@ public class WSEdicion {
 		
 	}
 /* Metodo por RequestMapping */	
-//	@CrossOrigin(origins = "http://localhost:7879")
-	@CrossOrigin(origins = "http://localhost:8080")
+	@CrossOrigin(origins = "http://localhost:7879")
+//	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
-            method = RequestMethod.POST, path = "/fileUpload")//,  consumes = "multipart/form-data", produces = "application/json")
+            method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
 	/* Metodo por PostMapping */
 //	 @PostMapping("/fileUpload")
 	/* Metodo por POST */
-	   public ResponseEntity<Object> fileUpload(@RequestBody MultipartFile uploadfile){
+	   public ResponseEntity<Object> fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
 //		public VOStatus fileUpload(@RequestBody MultipartFile uploadfile){
 //		public VOStatus fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
 	   try {
@@ -64,7 +64,7 @@ public class WSEdicion {
 		    System.out.println("Exito");
 		  }
 		  catch (Exception e) {
-		    System.out.println(e.getMessage());
+		    System.out.println("exception : "+e.getMessage());
 		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //		    return new VOStatus(99, "fallo");
 		  }

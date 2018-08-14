@@ -24,8 +24,8 @@ public class WSEdicion {
 //	@Autowired
 //	VOStatus voStatus;
 	
-	//@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz"})
-	@CrossOrigin(origins = "http://localhost:8080")
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz"})
+//	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
             method = RequestMethod.POST, path = "/{modelo}/{seccion}",  consumes = "application/json", produces = "application/json")
 	public  VOStatus updateEdicion(@PathVariable String modelo, @PathVariable String seccion, @RequestBody Object objeto) {
@@ -39,21 +39,23 @@ public class WSEdicion {
 		
 	}
 /* Metodo por RequestMapping */	
-	@CrossOrigin(origins = "http://localhost:7879")
+//	@CrossOrigin(origins = "http://localhost:7879")
 //	@CrossOrigin(origins = "http://localhost:8080")
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz"})
 	@RequestMapping(
             method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
 	/* Metodo por PostMapping */
 //	 @PostMapping("/fileUpload")
 	/* Metodo por POST */
-	   public ResponseEntity<Object> fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
+//	   public ResponseEntity<Object> fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
 //		public VOStatus fileUpload(@RequestBody MultipartFile uploadfile){
-//		public VOStatus fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
+		public VOStatus fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
 	   try {
 		    // Get the filename and build the local file path (be sure that the 
 		    // application have write permissions on such directory)
 		    String filename = uploadfile.getOriginalFilename();
-		    String directory = "C:\\Kaltia\\X _ Borrrador";
+//		    String directory = "C:/Kaltia/X _ Borrrador";
+		    String directory = "/kaltia/directorio";
 		    String filepath = Paths.get(directory, filename).toString();
 		    
 		    // Save the file locally
@@ -65,10 +67,10 @@ public class WSEdicion {
 		  }
 		  catch (Exception e) {
 		    System.out.println("exception : "+e.getMessage());
-		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		    return new VOStatus(99, "fallo");
+//		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		    return new VOStatus(99, "fallo");
 		  }
-//	      return new VOStatus(00, "ExitoFileUpload");
-		  return new ResponseEntity<>(HttpStatus.OK);
+	      return new VOStatus(00, "ExitoFileUpload");
+//		  return new ResponseEntity<>(HttpStatus.OK);
 		} // method uploadFile}
 }

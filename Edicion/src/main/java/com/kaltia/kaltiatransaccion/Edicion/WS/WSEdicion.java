@@ -24,7 +24,7 @@ public class WSEdicion {
 //	@Autowired
 //	VOStatus voStatus;
 	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz"})
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 //	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
             method = RequestMethod.POST, path = "/{modelo}/{seccion}",  consumes = "application/json", produces = "application/json")
@@ -41,7 +41,7 @@ public class WSEdicion {
 /* Metodo por RequestMapping */	
 //	@CrossOrigin(origins = "http://localhost:7879")
 //	@CrossOrigin(origins = "http://localhost:8080")
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz"})
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 	@RequestMapping(
             method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
 	/* Metodo por PostMapping */

@@ -27,9 +27,9 @@ public class WSEdicion {
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 //	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(
-            method = RequestMethod.POST, path = "/{modelo}/{seccion}",  consumes = "application/json", produces = "application/json")
-	public  VOStatus updateEdicion(@PathVariable String modelo, @PathVariable String seccion, @RequestBody Object objeto) {
-		return new VOStatus(10, modelo+"-"+seccion);
+            method = RequestMethod.POST, path = "/{action}/{seccion}",  consumes = "application/json", produces = "application/json")
+	public  VOStatus updateEdicion(@PathVariable String action, @PathVariable String seccion, @RequestBody Object objeto) {
+		return new VOStatus(10, action+"-"+seccion);
 //		voStatus.setCodigo();
 //		voStatus.setMensaje();
 		
@@ -39,8 +39,6 @@ public class WSEdicion {
 		
 	}
 /* Metodo por RequestMapping */	
-//	@CrossOrigin(origins = "http://localhost:7879")
-//	@CrossOrigin(origins = "http://localhost:8080")
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 	@RequestMapping(
             method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
@@ -67,10 +65,8 @@ public class WSEdicion {
 		  }
 		  catch (Exception e) {
 		    System.out.println("exception : "+e.getMessage());
-//		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		    return new VOStatus(99, "fallo");
 		  }
 	      return new VOStatus(00, "ExitoFileUpload");
-//		  return new ResponseEntity<>(HttpStatus.OK);
-		} // method uploadFile}
+		} 
 }

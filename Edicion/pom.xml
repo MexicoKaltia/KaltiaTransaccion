@@ -26,17 +26,16 @@
 		<java.version>1.8</java.version>
 	</properties>
 
-	<dependencies>
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -47,44 +46,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- Integracion Hibernate -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-orm</artifactId> -->
-<!-- 			<version>4.2.0.RELEASE</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-jdbc</artifactId> -->
-<!--  			<version>3.1.1.RELEASE</version> --> 
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-core</artifactId> -->
-<!-- 			<version>5.2.12.Final</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-entitymanager</artifactId> -->
-<!--  			<version>4.1.2.Final</version> --> 
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-orm</artifactId> -->
-<!-- 			<version>3.1.1.RELEASE</version> --> 
-<!-- 		</dependency> -->
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<!-- 		<dependency> -->
-<!-- 		    <groupId>mysql</groupId> -->
-<!-- 		    <artifactId>mysql-connector-java</artifactId> -->
-<!-- 		    <version>8.0.11</version> -->
-<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>

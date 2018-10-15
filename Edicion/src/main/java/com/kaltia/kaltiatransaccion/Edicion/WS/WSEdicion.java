@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
 public class WSEdicion {
 	
 	@Autowired
+	@Qualifier("edicionServiceImpl")
 	EdicionService edicionService;
 	@Autowired
 	ResultVO resultVO;
@@ -40,7 +42,7 @@ public class WSEdicion {
 		
 		if(idEmpresa.equals("create")) {
 			logger.info("create");
-//			resultVO = edicionService.edicionServiceCreate();
+			resultVO = edicionService.edicionServiceCreate();
 			
 		}else if(idEmpresa.equals("read")) {
 			logger.info("read");

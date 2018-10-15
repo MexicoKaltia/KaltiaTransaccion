@@ -10,23 +10,23 @@ import com.kaltia.kaltiatransaccion.Edicion.DAO.EmpresaDAO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
 
-//@Service
-////@Transactional
+@Service("edicionServiceImpl")
 public class EdicionServiceImpl implements EdicionService{
-//	
+	
 //@Autowired
 //private EmpresaEntity empresaEntity;
-//@Autowired
-//private ResultVO resultVO;
-//@Autowired
-//@Qualifier("empresaDAO")
-//private EmpresaDAO empresaDAO;
+@Autowired
+private ResultVO resultVO;
+
+@Autowired
+@Qualifier("empresaDAO")
+private EmpresaDAO empresaDAO;
 
 	@Override
 	public ResultVO edicionServiceCreate() {
 		
 		EmpresaEntity empresaEntity= new EmpresaEntity();
-		empresaEntity.setIdEmpresa("idEmpresa2");
+		empresaEntity.setIdEmpresa("idEmpresa21");
 		empresaEntity.setIdAction("idAction");
 		empresaEntity.setEmpresaNombreCompleto("empresaNombreCompleto");
 		empresaEntity.setEmpresaRFC("empresaRFC");
@@ -42,13 +42,13 @@ public class EdicionServiceImpl implements EdicionService{
 		empresaEntity.setEmpresaModoPago("empresaModoPago");
 		empresaEntity.setEmpresaFactura("empresaFactura");
 		
-//		empresaDAO.save(empresaEntity);
-//		
-//		resultVO.setCodigo(99);
-//		resultVO.setMensaje("Llegando al DAO con injeccion de dependencias");
-//		
-//		return resultVO;//.empresaCreateDAO(empresaEntity);
-		return null;
+		empresaDAO.save(empresaEntity);
+		
+		resultVO.setCodigo(99);
+		resultVO.setMensaje("Llegando al DAO con injeccion de dependencias");
+		
+		return resultVO;//.empresaCreateDAO(empresaEntity);
+//		return null;
 	}
 
 	@Override

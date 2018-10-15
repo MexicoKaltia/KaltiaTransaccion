@@ -16,12 +16,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 //})
 @Entity
 @Table(name="tc_empresa")
-public class EmpresaEntity implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 219054041465778333L;
-
+public class EmpresaEntity {
+	
 	public EmpresaEntity(){}
 
 	

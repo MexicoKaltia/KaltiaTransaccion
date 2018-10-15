@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kaltia.kaltiatransaccion.Edicion.Service.EdicionService;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
+import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 
 
@@ -35,10 +37,26 @@ public class WSEdicion {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
-//	@CrossOrigin(origins = "http://localhost:8080")
+	@PostMapping("/edicionSeccion")
+	public  ResultVO updateSeccion(@RequestBody ValoresJsonVO valoresJsonVO) {
+		
+		/* ValoresJsonVO
+		 * 
+		 * {action: "bronea", 
+		 * idEmpresa: "EUM", 
+		 * seccion: "headerSeccion1", 
+		 * valoresFinales: "ACERCA DE NOSOTROS.null++CONTACTO.null++REGISTRO.null++INGRESA.null"}
+		 */
+			logger.info("EdicionSeccion");
+			resultVO = edicionService.edicionServiceUpdate(valoresJsonVO);
+		
+		return  resultVO;
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 	@RequestMapping(
             method = RequestMethod.POST, path = "/{idEmpresa}/{seccion}",  consumes = "application/json", produces = "application/json")
-	public  ResultVO updateEdicion(@PathVariable String idEmpresa, @PathVariable String seccion, @RequestBody Object objeto) {
+	public  ResultVO updateEdicion(@PathVariable String idEmpresa, @PathVariable String seccion, @RequestBody ValoresJsonVO valoresJsonVO) {
 		
 		if(idEmpresa.equals("create")) {
 			logger.info("create");
@@ -52,19 +70,14 @@ public class WSEdicion {
 			logger.info("delete");
 		}else {
 			logger.info("any");
-			
+			resultVO = edicionService.edicionServiceUpdate(valoresJsonVO);
 		}
 		
 		
 		return  resultVO;// new ResultVO(2, action+"-"+seccion);
-//		voStatus.setCodigo();
-//		voStatus.setMensaje();
-		
-		
-		
-		//return voStatus;
-		
 	}
+	
+	
 /* Metodo por RequestMapping */	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 	@RequestMapping(

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
-import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
 
 @Repository("empresaDAO")
 public interface EmpresaDAO extends JpaRepository<EmpresaEntity, Serializable>{

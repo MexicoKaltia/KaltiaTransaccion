@@ -3,8 +3,6 @@ package com.kaltia.kaltiatransaccion.Edicion.DAO;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
@@ -20,11 +18,7 @@ public  class EmpresaDAOImpl_REVISAR {//implements EmpresaDAO{
 	 
 	/*Se necesita de una transaccion activa
 	 * por ello la prueba unitaria utiliza @Transactional*/
-//	private Session currentSession(SessionFactory sessionFactory) {
-//		return sessionFactory.getCurrentSession();
-//	}
-	@SuppressWarnings("unchecked")
-	public ResultVO empresaCreateDAO(EmpresaEntity empresaEntity) {
+public ResultVO empresaCreateDAO(EmpresaEntity empresaEntity) {
 		
 		Session session = null;
 //		currentSession(sessionFactory).saveOrUpdate(empresaEntity);

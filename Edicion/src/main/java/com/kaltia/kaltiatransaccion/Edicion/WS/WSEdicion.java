@@ -81,19 +81,20 @@ public class WSEdicion {
 /* Metodo por RequestMapping */	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
 	@RequestMapping(
-            method = RequestMethod.POST, path = "/fileUpload",  consumes = "multipart/form-data", produces = "application/json")
+            method = RequestMethod.POST, path = "/fileUpload/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
 	/* Metodo por PostMapping */
 //	 @PostMapping("/fileUpload")
 	/* Metodo por POST */
 //	   public ResponseEntity<Object> fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
 //		public VOStatus fileUpload(@RequestBody MultipartFile uploadfile){
-		public ResultVO fileUpload(@RequestParam("uploadfile") MultipartFile uploadfile){
+		public ResultVO fileUpload(@PathVariable String idEmpresa, @RequestParam("uploadfile") MultipartFile uploadfile){
 	   try {
 		    // Get the filename and build the local file path (be sure that the 
 		    // application have write permissions on such directory)
 		    String filename = uploadfile.getOriginalFilename();
 //		    String directory = "C:/Kaltia/X _ Borrrador";
-		    String directory = "/kaltia/directorio";
+		    String directory = "/kaltia/empresa/"+idEmpresa;
+//		    String directory = "kaltia-mx.xyz/kaltia/modelo/bronea/images/";
 		    String filepath = Paths.get(directory, filename).toString();
 		    
 		    // Save the file locally
@@ -101,10 +102,14 @@ public class WSEdicion {
 		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
 		    stream.write(uploadfile.getBytes());
 		    stream.close();
-		    System.out.println("Exito");
+		    resultVO.setCodigo(0);
+		    resultVO.setMensaje("ExitoFileUpload");
+		    logger.info(resultVO.getMensaje());
 		  }
 		  catch (Exception e) {
-		    System.out.println("exception : "+e.getMessage());
+		    logger.info("exception : "+e.getMessage());
+		    resultVO.setCodigo(99);
+		    resultVO.setMensaje(e.getMessage());
 		    return resultVO;//new ResultVO(99, "fallo");
 		  }
 	      return resultVO;//new ResultVO(1, "ExitoFileUpload");

@@ -36,7 +36,7 @@ public class WSEdicion {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiamx.xyz", "http://www.kaltiamx.xyz", "http://localhost:8080"})
 	@PostMapping("/edicionSeccion")
 	public  ResultVO updateSeccion(@RequestBody ValoresJsonVO valoresJsonVO) {
 		

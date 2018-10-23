@@ -19,13 +19,13 @@ public class ResultVO implements Serializable{
 
 	public ResultVO() {}
 	
-	private Integer codigo;
+	private String codigo;
 	private String	mensaje;
 	
-	public Integer getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 	public String getMensaje() {

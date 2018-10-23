@@ -1,8 +1,11 @@
 package com.kaltia.kaltiatransaccion.FileUpload.WS;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Paths;
 
 import org.apache.commons.logging.Log;
@@ -46,13 +49,42 @@ public class FileUploadWS {
 		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
 		    stream.write(uploadfile.getBytes());
 		    stream.close();
-		    resultVO.setCodigo(0);
+		    
+		    
+		    resultVO.setCodigo("00");
 		    resultVO.setMensaje("ExitoFileUpload");
+		    if(resultVO.getCodigo().equals("00")) {
+				try {
+					
+					Runtime rt = Runtime.getRuntime();
+				    String commands = ("/kaltia/shell/EmpresaActualiza.sh "+ idEmpresa +" "+ filename);
+				    Process proc = rt.exec(commands);
+				    BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+				    BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+				    logger.info("Salida EmpresaActualiza:\n");
+				    String s = null;
+				    resultVO.setCodigo("00");
+				    resultVO.setMensaje("Exito Carga Imagen Repositorio");
+				    while ((s = stdInput.readLine()) != null) {
+				    	logger.info(s);
+				    }
+
+				    while ((s = stdError.readLine()) != null) {
+				    	logger.info(s);
+				                }
+				    } catch (IOException ioe) {
+				    	logger.info("ERROR Ejecutando script EmpresaActualiza.sh");
+				    	logger.info(ioe);
+				    	resultVO.setCodigo("99");
+					    resultVO.setMensaje("FALLO Carga Imagen Repositorio. :"+ioe);
+
+				    }
+			}
 		    logger.info(resultVO.getMensaje());
 		  }
 		  catch (Exception e) {
 		    logger.info("exception : "+e.getMessage());
-		    resultVO.setCodigo(99);
+		    resultVO.setCodigo("99");
 		    resultVO.setMensaje(e.getMessage());
 		    return resultVO;//new ResultVO(99, "fallo");
 		  }

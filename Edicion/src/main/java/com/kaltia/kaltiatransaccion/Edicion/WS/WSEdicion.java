@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kaltia.kaltiatransaccion.Edicion.Service.EdicionService;
+import com.kaltia.kaltiatransaccion.Edicion.Service.UserEmpresaServiceImpl;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
@@ -31,6 +32,9 @@ public class WSEdicion {
 	@Autowired
 	@Qualifier("edicionServiceImpl")
 	EdicionService edicionService;
+	@Autowired
+	@Qualifier("userEmpresaServiceImpl")
+	UserEmpresaServiceImpl userEmpresaServiceImpl;
 	@Autowired
 	ResultVO resultVO;
 
@@ -49,6 +53,40 @@ public class WSEdicion {
 		 */
 			logger.info("EdicionSeccion");
 			resultVO = edicionService.edicionServiceUpdate(valoresJsonVO);
+		
+		return  resultVO;
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiamx.xyz", "http://www.kaltiamx.xyz", "http://localhost:8080"})
+	@PostMapping("/registroUser")
+	public  ResultVO registroUser(@RequestBody ValoresJsonVO valoresJsonVO) {
+		
+		/* ValoresJsonVO
+		 * 
+		 * {action: "bronea", 
+		 * idEmpresa: "EUM", 
+		 * seccion: "headerSeccion1", 
+		 * valoresFinales: "nombreRegistro + apellidoRegistro + emailRegistro + telefonoRegistro + usuarioRegistro + passRegistro1 + messageRegistro"}
+		 */
+			logger.info("EdicionSeccion");
+			resultVO = userEmpresaServiceImpl.userEmpresaCreate(valoresJsonVO);
+		
+		return  resultVO;
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiamx.xyz", "http://www.kaltiamx.xyz", "http://localhost:8080"})
+	@PostMapping("/ingresaUser")
+	public  ResultVO ingresaUser(@RequestBody ValoresJsonVO valoresJsonVO) {
+		
+		/* ValoresJsonVO
+		 * 
+		 * {action: "bronea", 
+		 * idEmpresa: "EUM", 
+		 * seccion: "headerSeccion1", 
+		 * valoresFinales: "nombreRegistro + apellidoRegistro + emailRegistro + telefonoRegistro + usuarioRegistro + passRegistro1 + messageRegistro"}
+		 */
+			logger.info("EdicionSeccion");
+			resultVO = userEmpresaServiceImpl.userEmpresaRead(valoresJsonVO);
 		
 		return  resultVO;
 	}

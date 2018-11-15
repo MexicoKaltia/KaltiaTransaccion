@@ -32,7 +32,17 @@ public class UserEmpresaEntity {
 	private String passRegistro;
 	@Column
 	private String messageRegistro;
+	@Column
+	private String monitorRegistro;
 	
+	
+	
+	public String getMonitorRegistro() {
+		return monitorRegistro;
+	}
+	public void setMonitorRegistro(String monitorRegistro) {
+		this.monitorRegistro = monitorRegistro;
+	}
 	public String getIdUserEmpresa() {
 		return idUserEmpresa;
 	}

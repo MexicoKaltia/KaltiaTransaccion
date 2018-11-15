@@ -56,11 +56,21 @@ private UserEmpresaDAO userEmpresaDAO;
 		String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
 		logger.info(valoresJsonVO.getValoresFinales());
 		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
-		userEmpresaEntity = userEmpresaDAO.findOne(valoresJsonVO.getAction()+valoresRegistro[0]);
-		logger.info(userEmpresaEntity.getNombreRegistro());
-		
-		resultVO.setCodigo(0);
-		resultVO.setMensaje(userEmpresaEntity.getNombreRegistro());
+		try {
+			userEmpresaEntity = userEmpresaDAO.findOne(valoresJsonVO.getAction()+valoresRegistro[0]);
+			if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
+				userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
+				userEmpresaDAO.save(userEmpresaEntity);
+				resultVO.setCodigo(0);
+				resultVO.setMensaje(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
+			}else {
+				resultVO.setCodigo(99);
+				resultVO.setMensaje("Usuario > Password inválidos");
+			}
+		}catch(Exception e) {
+			resultVO.setCodigo(99);
+			resultVO.setMensaje("Usuario < Password inválidos");
+		}				
 		
 		return resultVO;//.empresaCreateDAO(empresaEntity);
 	}

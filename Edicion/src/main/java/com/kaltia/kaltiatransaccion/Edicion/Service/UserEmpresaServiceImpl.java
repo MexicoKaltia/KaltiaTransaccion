@@ -23,6 +23,9 @@ private ResultVO resultVO;
 @Qualifier("userEmpresaDAO")
 private UserEmpresaDAO userEmpresaDAO;
 
+@Autowired
+private CitaServiceImpl citaServiceImpl;
+
 
 
 	@Override
@@ -61,6 +64,9 @@ private UserEmpresaDAO userEmpresaDAO;
 			if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
 				userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
 				userEmpresaDAO.save(userEmpresaEntity);
+				
+				citaServiceImpl.citaServiceRead(valoresJsonVO.getAction());
+				
 				resultVO.setCodigo(0);
 				resultVO.setMensaje(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
 			}else {

@@ -1,5 +1,7 @@
 package com.kaltia.kaltiatransaccion.Edicion.Service;
 
+import java.util.ArrayList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.kaltia.kaltiatransaccion.Edicion.DAO.UserEmpresaDAO;
+import com.kaltia.kaltiatransaccion.Edicion.VO.ResultArrayVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
@@ -20,11 +23,17 @@ public class UserEmpresaServiceImpl implements UserEmpresaService {
 private ResultVO resultVO;
 
 @Autowired
-@Qualifier("userEmpresaDAO")
-private UserEmpresaDAO userEmpresaDAO;
+private ResultArrayVO resultArrayVO;
+
 
 @Autowired
 private CitaServiceImpl citaServiceImpl;
+
+
+@Autowired
+@Qualifier("userEmpresaDAO")
+private UserEmpresaDAO userEmpresaDAO;
+
 
 
 
@@ -55,30 +64,43 @@ private CitaServiceImpl citaServiceImpl;
 	}
 
 	@Override
-	public ResultVO userEmpresaRead(ValoresJsonVO valoresJsonVO) {
+	public ResultArrayVO userEmpresaRead(ValoresJsonVO valoresJsonVO) {
 		String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
 		logger.info(valoresJsonVO.getValoresFinales());
 		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
+		ArrayList<String> resultArray = new ArrayList<String>();
+		
 		try {
 			userEmpresaEntity = userEmpresaDAO.findOne(valoresJsonVO.getAction()+valoresRegistro[0]);
 			if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
 				userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
 				userEmpresaDAO.save(userEmpresaEntity);
-				
-				citaServiceImpl.citaServiceRead(valoresJsonVO.getAction());
-				
-				resultVO.setCodigo(0);
-				resultVO.setMensaje(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
+				resultArray.add(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
+		
+				resultArrayVO = citaServiceImpl.citaServiceRead(valoresJsonVO.getAction().toString());
+				if(resultArrayVO.getCodigo()==0) {
+					resultArray.addAll(resultArrayVO.getMensaje());
+				}else {
+					resultArray.add("Error de Fecha Calendario");
+				}
+				resultArrayVO.setMensaje(resultArray);
 			}else {
-				resultVO.setCodigo(99);
-				resultVO.setMensaje("Usuario > Password inválidos");
+				resultArrayVO.setCodigo(98);
+				resultArray.add("Usuario > Password inválidos");
+				resultArrayVO.setMensaje(resultArray);
 			}
 		}catch(Exception e) {
 			resultVO.setCodigo(99);
-			resultVO.setMensaje("Usuario < Password inválidos");
+			resultArray.add("Usuario > Password inválidos");
+			resultArrayVO.setMensaje(resultArray);
 		}				
 		
-		return resultVO;//.empresaCreateDAO(empresaEntity);
+		
+		for(String campo : resultArrayVO.getMensaje()) {
+			logger.info(campo);
+		}
+		
+		return resultArrayVO;//.empresaCreateDAO(empresaEntity);
 	}
 
 	@Override

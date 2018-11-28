@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kaltia.kaltiatransaccion.Edicion.Service.EdicionService;
 import com.kaltia.kaltiatransaccion.Edicion.Service.UserEmpresaServiceImpl;
+import com.kaltia.kaltiatransaccion.Edicion.VO.ResultArrayVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
@@ -37,6 +38,8 @@ public class WSEdicion {
 	UserEmpresaServiceImpl userEmpresaServiceImpl;
 	@Autowired
 	ResultVO resultVO;
+	@Autowired
+	ResultArrayVO resultArrayVO;
 
 	protected final Log logger = LogFactory.getLog(getClass());
 	
@@ -76,7 +79,7 @@ public class WSEdicion {
 	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiamx.xyz", "http://www.kaltiamx.xyz", "http://localhost:8080"})
 	@PostMapping("/ingresaUser")
-	public  ResultVO ingresaUser(@RequestBody ValoresJsonVO valoresJsonVO) {
+	public  ResultArrayVO ingresaUser(@RequestBody ValoresJsonVO valoresJsonVO) {
 		
 		/* ValoresJsonVO
 		 * 
@@ -86,9 +89,9 @@ public class WSEdicion {
 		 * valoresFinales: "nombreRegistro + apellidoRegistro + emailRegistro + telefonoRegistro + usuarioRegistro + passRegistro1 + messageRegistro"}
 		 */
 			logger.info("EdicionSeccion");
-			resultVO = userEmpresaServiceImpl.userEmpresaRead(valoresJsonVO);
+			resultArrayVO = userEmpresaServiceImpl.userEmpresaRead(valoresJsonVO);
 		
-		return  resultVO;
+		return  resultArrayVO;
 	}
 	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})

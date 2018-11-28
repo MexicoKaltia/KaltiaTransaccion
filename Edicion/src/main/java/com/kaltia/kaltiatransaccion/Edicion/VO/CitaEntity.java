@@ -6,10 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tc_empresa")
+@Table(name="tw_cita")
 public class CitaEntity {
 	
-	public CitaEntity(){};
+	public CitaEntity(){}
 	
 	@Id
 	private String idAction;
@@ -39,6 +39,8 @@ public class CitaEntity {
 	private String noviembreCita;
 	@Column
 	private String diciembreCita;
+	
+	
 	public String getIdAction() {
 		return idAction;
 	}

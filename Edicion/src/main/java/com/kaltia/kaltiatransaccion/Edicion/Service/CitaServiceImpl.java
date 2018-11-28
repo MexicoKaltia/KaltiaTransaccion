@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.kaltia.kaltiatransaccion.Edicion.DAO.CitaDAO;
@@ -17,17 +18,18 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 @Service("citaServiceImpl")
 public class CitaServiceImpl implements CitaService {
 	
+	private static final long serialVersionUID = -2559787777079230762L;
+
 		protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
 	private ResultArrayVO resultArrayVO;
 	
 	@Autowired
+	@Qualifier("citaDAO")
 	private CitaDAO citaDAO;
 	
-	public CitaEntity citaEntity;
-
-	private static Calendar now;
+	private static Calendar fecha = Calendar.getInstance();
 	
 	@Override
 	public ResultVO citaServiceCreate() {
@@ -38,32 +40,39 @@ public class CitaServiceImpl implements CitaService {
 	@Override
 	public ResultArrayVO citaServiceRead(String action) {
 		
-		citaEntity = new CitaEntity();
+		CitaEntity citaEntity = new CitaEntity();
+		String mesActual;
+		String mesMas;
+		ArrayList<String> meses = new ArrayList<String>();
+		
 		try {
 			citaEntity = citaDAO.findOne(action);
-			String mesActual = numMes(now.get(Calendar.MONTH), citaEntity);
-			String mesMas="";
-			if(now.get(Calendar.MONTH)+1 == 12) {
+			mesActual= numMes(fecha.get(Calendar.MONTH), citaEntity);
+			
+			if(fecha.get(Calendar.MONTH)+1 == 12) {
 				mesMas = numMes(0, citaEntity);
 			}else {
-				mesMas = numMes(now.get(Calendar.MONTH)+1, citaEntity);
+				mesMas = numMes(fecha.get(Calendar.MONTH)+1, citaEntity);
 			}
-			resultArrayVO.setCodigo(0);
-			ArrayList<String> meses = new ArrayList<String>();
+			meses.add(citaEntity.getCondicionesCita());
 			meses.add(mesActual);
 			meses.add(mesMas);
+			resultArrayVO.setCodigo(0);
 			resultArrayVO.setMensaje(meses);
 			
 		}catch(Exception e){
+			e.printStackTrace() ;
 			resultArrayVO.setCodigo(99);
 			ArrayList<String> exceptionE= new ArrayList<String>();
 			exceptionE.add(e.toString());
 			resultArrayVO.setMensaje(exceptionE);
 		}
 		
-		logger.info(resultArrayVO.getCodigo());
+		
 		return resultArrayVO;
 	}
+
+	
 
 	@Override
 	public ResultVO citaServiceUpdate(ValoresJsonVO valoresJsonVO) {

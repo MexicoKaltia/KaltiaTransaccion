@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
- 
+
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -15,14 +15,61 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.kaltia.kaltiatransaccion.mail.vo.MailVO;
+import com.kaltia.kaltiatransaccion.mail.vo.ResultVO;
+import com.kaltia.kaltiatransaccion.mail.vo.ValoresJSONVO;
 
 
 @Service 
-public class ServiceMail{
+public class MailServiceImpl implements MailService{
  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected final Log logger = LogFactory.getLog(getClass());
+	 
+	
+	@Autowired
+	private ResultVO resultVO;
+	@Autowired
+	private ClienteRest clienteRest;
+	
+	@Override
+	public ResultVO mailServiceCreate(ValoresJSONVO valoresJSONVO) {
+		
+		String userEmpresa = valoresJSONVO.getIdEmpresa().toString();
+		String correoIdUserEmpresa = clienteRest.getUserEmpresa(userEmpresa);
+		String correoEmpresa = clienteRest.getEmpresa(valoresJSONVO.getAction());
+		
+		logger.info("userEmpresa:"+correoIdUserEmpresa); //OK
+		logger.info("empresa:"+correoEmpresa);
+//		Object correoUserEmpresa = clienteRest.getUserEmpresa(userEmpresa);
+//		String asuntoCorreo = "";
+//		String textoCorreo ="";
+//		
+		
+		return null;
+		}
 
-	 public void mandarCorreo() {
+	@Override
+	public ResultVO mailServiceRead(String action) {return null;}
+
+	@Override
+	public ResultVO mailServiceUpdate(ValoresJSONVO valoresJsonVO) {return null;}
+
+	@Override
+	public ResultVO mailServiceDelete() {return null;}
+
+
+
+	 public ResultVO mandarCorreo(MailVO mailVO) {
 	  // El correo gmail de envío
 	  String correoEnvia = "hugogrivas@mexicocss.com";
 	  String claveCorreo = "H00W6odR";
@@ -62,7 +109,7 @@ public class ServiceMail{
 	   Multipart multipart = new MimeMultipart();
 	 
 	   // Leer la plantilla
-	   InputStream inputStream = getClass().getResourceAsStream("\\layout\\PlantillaDJ.html");
+	   InputStream inputStream = getClass().getResourceAsStream("/static/layout/PlantillaDJ.html");
 	   BufferedReader bufferedReader = new BufferedReader(
 	     new InputStreamReader(inputStream));
 	 
@@ -119,7 +166,10 @@ public class ServiceMail{
 	   System.out.println("Correo NO enviado");
 	  }
 	  
+	  return resultVO;
+	  
 	 }
-	 
+
+			 
  
 }

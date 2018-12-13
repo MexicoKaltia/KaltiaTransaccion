@@ -2,7 +2,10 @@ package com.kaltia.kaltiatransaccion.mail.vo;
 
 import java.io.Serializable;
 
-public class VOMail implements Serializable{
+import org.springframework.stereotype.Component;
+
+@Component
+public class MailVO implements Serializable{
 
 	/**
 	 * 
@@ -14,6 +17,8 @@ public class VOMail implements Serializable{
 	private String userDestino;
 	private boolean status;
 	private String mensaje;
+	
+	
 	public String getUserOrigen() {
 		return userOrigen;
 	}

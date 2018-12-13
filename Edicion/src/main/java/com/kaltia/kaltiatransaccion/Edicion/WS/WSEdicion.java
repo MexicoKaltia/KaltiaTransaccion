@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kaltia.kaltiatransaccion.Edicion.Service.EdicionService;
+import com.kaltia.kaltiatransaccion.Edicion.Service.EmpresaService;
 import com.kaltia.kaltiatransaccion.Edicion.Service.UserEmpresaServiceImpl;
+import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultArrayVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
+import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 
@@ -40,6 +44,10 @@ public class WSEdicion {
 	ResultVO resultVO;
 	@Autowired
 	ResultArrayVO resultArrayVO;
+	@Autowired
+	EmpresaService empresaService;
+	UserEmpresaEntity userEmpresaEntity;
+	EmpresaEntity empresaEntity;
 
 	protected final Log logger = LogFactory.getLog(getClass());
 	
@@ -92,6 +100,26 @@ public class WSEdicion {
 			resultArrayVO = userEmpresaServiceImpl.userEmpresaRead(valoresJsonVO);
 		
 		return  resultArrayVO;
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiamx.xyz", "http://www.kaltiamx.xyz", "http://localhost:8080"})
+	@GetMapping("/userEmpresaRead")
+	public  UserEmpresaEntity userEmpresaRead(@RequestParam("idUserEmpresa") String idUserEmpresa) {
+		
+			logger.info("userEmpresaRead");
+			userEmpresaEntity = userEmpresaServiceImpl.userEmpresaRead(idUserEmpresa);
+		
+		return  userEmpresaEntity;
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiamx.xyz", "http://www.kaltiamx.xyz", "http://localhost:8080"})
+	@GetMapping("/empresaRead")
+	public  EmpresaEntity empresaRead(@RequestParam("idEmpresa") String idEmpresa) {
+		
+			logger.info("empresaRead");
+			empresaEntity = empresaService.empresaServiceRead(idEmpresa);
+		
+		return  empresaEntity;
 	}
 	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://localhost:8080"})

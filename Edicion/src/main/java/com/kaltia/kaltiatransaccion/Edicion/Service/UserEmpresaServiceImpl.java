@@ -115,4 +115,17 @@ private UserEmpresaDAO userEmpresaDAO;
 		return null;
 	}
 
+	@Override
+	public UserEmpresaEntity userEmpresaRead(String idUserEmpresa) {
+		
+		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
+		try {
+			userEmpresaEntity = userEmpresaDAO.findOne(idUserEmpresa);
+		}catch(Exception e) {
+			userEmpresaEntity.setMessageRegistro(e.toString());
+		}				
+		
+		return userEmpresaEntity;
+	}
+
 }

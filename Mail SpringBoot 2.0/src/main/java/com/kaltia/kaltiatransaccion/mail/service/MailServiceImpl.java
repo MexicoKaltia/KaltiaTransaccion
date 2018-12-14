@@ -40,6 +40,8 @@ public class MailServiceImpl implements MailService{
 	private ResultVO resultVO;
 	@Autowired
 	private ClienteRest clienteRest;
+	@Autowired
+	private MailVO mailVO;
 	
 	@Override
 	public ResultVO mailServiceCreate(ValoresJSONVO valoresJSONVO) {
@@ -49,11 +51,16 @@ public class MailServiceImpl implements MailService{
 		String correoEmpresa = clienteRest.getEmpresa(valoresJSONVO.getAction());
 		
 		logger.info("userEmpresa:"+correoIdUserEmpresa); //OK
-		logger.info("empresa:"+correoEmpresa);
-//		Object correoUserEmpresa = clienteRest.getUserEmpresa(userEmpresa);
-//		String asuntoCorreo = "";
-//		String textoCorreo ="";
-//		
+		logger.info("empresa:"+correoEmpresa); //OK
+		
+//		mailVO.setAsunto(asunto);
+//		mailVO.setBody(body);
+//		mailVO.setMensaje(mensaje);
+//		mailVO.setUserDestino(userDestino);
+//		mailVO.setUserOrigen(userOrigen);
+		
+		resultVO = mandarCorreo(mailVO);
+		
 		
 		return null;
 		}

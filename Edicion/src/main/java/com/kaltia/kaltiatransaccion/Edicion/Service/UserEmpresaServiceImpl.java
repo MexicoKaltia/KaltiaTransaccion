@@ -41,22 +41,37 @@ private UserEmpresaDAO userEmpresaDAO;
 	public ResultVO userEmpresaCreate(ValoresJsonVO valoresJsonVO) {
 		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
 		logger.info(valoresJsonVO.getValoresFinales());
-		String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
+		try {
+			if(valoresJsonVO.getValoresFinales()!= null && !valoresJsonVO.getValoresFinales().equals("")) {
+				
+				String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
+				userEmpresaEntity.setIdUserEmpresa(valoresJsonVO.getAction()+valoresRegistro[4]);
+				userEmpresaEntity.setActionRegistro(valoresJsonVO.getAction());
+				userEmpresaEntity.setNombreRegistro(valoresRegistro[0]);
+				userEmpresaEntity.setApellidoRegistro(valoresRegistro[1]);
+				userEmpresaEntity.setEmailRegistro(valoresRegistro[2]);
+				userEmpresaEntity.setTelefonoRegistro(valoresRegistro[3]);
+				userEmpresaEntity.setUsuarioRegistro(valoresRegistro[4]);
+				userEmpresaEntity.setPassRegistro(valoresRegistro[5]);
+				userEmpresaEntity.setMessageRegistro("inicio");
+				
+				userEmpresaDAO.save(userEmpresaEntity);
+				
+				resultVO.setCodigo(0);
+				resultVO.setMensaje("Create UserEmpresa Exito");
+			}
+		}catch(Exception e) {
+			resultVO.setCodigo(99);
+			resultVO.setMensaje("Error Create UserEmpresa");
+		}
 		
-		userEmpresaEntity.setIdUserEmpresa(valoresJsonVO.getAction()+valoresRegistro[4]);
-		userEmpresaEntity.setActionRegistro(valoresJsonVO.getAction());
-		userEmpresaEntity.setNombreRegistro(valoresRegistro[0]);
-		userEmpresaEntity.setApellidoRegistro(valoresRegistro[1]);
-		userEmpresaEntity.setEmailRegistro(valoresRegistro[2]);
-		userEmpresaEntity.setTelefonoRegistro(valoresRegistro[3]);
-		userEmpresaEntity.setUsuarioRegistro(valoresRegistro[4]);
-		userEmpresaEntity.setPassRegistro(valoresRegistro[5]);
-		userEmpresaEntity.setMessageRegistro(valoresRegistro[6]);
+		if(resultVO.getCodigo() == 0) {
+			
+			
+			
+		}
+				
 		
-		userEmpresaDAO.save(userEmpresaEntity);
-		
-		resultVO.setCodigo(0);
-		resultVO.setMensaje("Create UserEmpresa Exito");
 		
 		return resultVO;//.empresaCreateDAO(empresaEntity);
 
@@ -90,7 +105,7 @@ private UserEmpresaDAO userEmpresaDAO;
 				resultArrayVO.setMensaje(resultArray);
 			}
 		}catch(Exception e) {
-			resultVO.setCodigo(99);
+			resultArrayVO.setCodigo(99);
 			resultArray.add("Usuario > Password inválidos");
 			resultArrayVO.setMensaje(resultArray);
 		}				

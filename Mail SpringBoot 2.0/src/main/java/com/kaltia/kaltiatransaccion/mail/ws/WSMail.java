@@ -19,6 +19,7 @@ import com.kaltia.kaltiatransaccion.mail.vo.VOHora;
 import com.kaltia.kaltiatransaccion.mail.vo.ValoresJSONVO;
 
 @RestController
+@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
 @RequestMapping("mail")
 public class WSMail {
 	
@@ -50,7 +51,7 @@ public class WSMail {
 		//return "hora:"+serviceHora.hora(); 
 	}
 	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
 	@RequestMapping(method = RequestMethod.POST,path = "{envioMail}",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO envioMail(@RequestBody ValoresJSONVO valoresJSONVO) {
 		String inicio = serviceHora.hora();

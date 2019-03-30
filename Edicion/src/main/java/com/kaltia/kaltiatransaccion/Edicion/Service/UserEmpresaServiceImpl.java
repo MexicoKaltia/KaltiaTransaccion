@@ -21,14 +21,12 @@ public class UserEmpresaServiceImpl implements UserEmpresaService {
 	
 @Autowired
 private ResultVO resultVO;
-
 @Autowired
 private ResultArrayVO resultArrayVO;
-
-
 @Autowired
 private CitaServiceImpl citaServiceImpl;
-
+@Autowired
+private ClienteRestImpl clienteRestImpl;
 
 @Autowired
 @Qualifier("userEmpresaDAO")
@@ -67,7 +65,7 @@ private UserEmpresaDAO userEmpresaDAO;
 		
 		if(resultVO.getCodigo() == 0) {
 			
-			
+			clienteRestImpl
 			
 		}
 				

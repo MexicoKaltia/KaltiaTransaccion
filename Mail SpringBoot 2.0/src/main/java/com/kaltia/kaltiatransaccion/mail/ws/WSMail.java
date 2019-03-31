@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kaltia.kaltiatransaccion.mail.service.ServiceHora;
+import com.kaltia.kaltiatransaccion.mail.service.MailService;
 import com.kaltia.kaltiatransaccion.mail.service.MailServiceImpl;
 import com.kaltia.kaltiatransaccion.mail.vo.MailVO;
 import com.kaltia.kaltiatransaccion.mail.vo.ResultVO;
@@ -26,7 +27,7 @@ public class WSMail {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
-	private final MailServiceImpl mailService;
+	private final MailService mailService;
 	@Autowired
 	private ServiceHora serviceHora;
 //	@Autowired
@@ -59,6 +60,18 @@ public class WSMail {
 		resultVO = mailService.mailServiceCreate(valoresJSONVO);
 		
 		mailVO.setMensaje("inicio:"+inicio+"\t final:"+serviceHora.hora());
+		
+		return resultVO;
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
+	@RequestMapping(method = RequestMethod.POST,path = "/notificarKUENuevo",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultVO notificarKUENuevo(@RequestBody ValoresJSONVO valoresJSONVO) {
+
+		logger.info("valoresJson Action: "+valoresJSONVO.getAction());  //OK
+		logger.info("valoresJson valoresFinales: "+valoresJSONVO.getValoresFinales());  //OK
+		
+		resultVO = mailService.mailServiceNotificarKUENuevo(valoresJSONVO);
 		
 		return resultVO;
 	}

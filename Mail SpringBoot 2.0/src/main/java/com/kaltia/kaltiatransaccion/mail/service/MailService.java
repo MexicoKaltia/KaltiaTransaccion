@@ -13,6 +13,8 @@ public interface MailService extends Serializable{
 	public ResultVO mailServiceUpdate(ValoresJSONVO valoresJsonVO);
 	public ResultVO mailServiceDelete();
 	
+	public ResultVO mailServiceNotificarKUENuevo(ValoresJSONVO valoresJSONVO);
+	
 	//public ResultVO mandarCorreo(ValoresJSONVO valoresJSONVO);
 
 

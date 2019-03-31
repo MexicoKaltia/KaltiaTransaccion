@@ -51,7 +51,7 @@ private UserEmpresaDAO userEmpresaDAO;
 				userEmpresaEntity.setTelefonoRegistro(valoresRegistro[3]);
 				userEmpresaEntity.setUsuarioRegistro(valoresRegistro[4]);
 				userEmpresaEntity.setPassRegistro(valoresRegistro[5]);
-				userEmpresaEntity.setMessageRegistro("inicio");
+				userEmpresaEntity.setStatusRegistro("inicio");
 				
 				userEmpresaDAO.save(userEmpresaEntity);
 				
@@ -62,18 +62,42 @@ private UserEmpresaDAO userEmpresaDAO;
 			resultVO.setCodigo(99);
 			resultVO.setMensaje("Error Create UserEmpresa");
 		}
-		
 		if(resultVO.getCodigo() == 0) {
-			
-			clienteRestImpl
-			
-		}
+			try {
+				resultVO = (ResultVO)clienteRestImpl.notificarKUENuevo(userEmpresaEntity);
+				resultVO.setMensaje("Create UserEmpresa " +resultVO.getMensaje()+"\n Favor verificar su correo para validar acceso");
+			}catch(Exception e) {
+				resultVO.setCodigo(99);
+				resultVO.setMensaje("Error Create UserEmpresa Correo");
+				e.printStackTrace();
+			}
 				
-		
-		
+		}
+
 		return resultVO;//.empresaCreateDAO(empresaEntity);
-
-
+	}
+	
+	@Override
+	public ResultVO userEmpresaCreate(String idUserEmpresa) {
+		
+		try {
+			UserEmpresaEntity userEmpresaEntity = userEmpresaDAO.findOne(idUserEmpresa);
+			if(userEmpresaEntity.getStatusRegistro().equals("inicio")) {
+				userEmpresaEntity.setStatusRegistro("activo");
+				userEmpresaDAO.save(userEmpresaEntity);
+				resultVO.setCodigo(0);
+				resultVO.setMensaje("Usuario Activo");
+			}else {
+				resultVO.setCodigo(99);
+				resultVO.setMensaje("Verificar Status, Usuario No Activo");
+			}
+		}catch(Exception e) {
+			resultVO.setCodigo(99);
+			resultVO.setMensaje("Verificar Usuario, Usuario no Existente");
+			e.printStackTrace();
+		}
+		
+		return resultVO;
 	}
 
 	@Override
@@ -85,23 +109,30 @@ private UserEmpresaDAO userEmpresaDAO;
 		
 		try {
 			userEmpresaEntity = userEmpresaDAO.findOne(valoresJsonVO.getAction()+valoresRegistro[0]);
-			if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
-				userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
-				userEmpresaDAO.save(userEmpresaEntity);
-				resultArray.add(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
-		
-				resultArrayVO = citaServiceImpl.citaServiceRead(valoresJsonVO.getAction().toString());
-				if(resultArrayVO.getCodigo()==0) {
-					resultArray.addAll(resultArrayVO.getMensaje());
+			if(userEmpresaEntity.getStatusRegistro().equals("activo")) {
+				if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
+					userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
+					userEmpresaDAO.save(userEmpresaEntity);
+					resultArray.add(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
+			
+					resultArrayVO = citaServiceImpl.citaServiceRead(valoresJsonVO.getAction().toString());
+					if(resultArrayVO.getCodigo()==0) {
+						resultArray.addAll(resultArrayVO.getMensaje());
+					}else {
+						resultArray.add("Error de Fecha Calendario");
+					}
+					resultArrayVO.setMensaje(resultArray);
 				}else {
-					resultArray.add("Error de Fecha Calendario");
+					resultArrayVO.setCodigo(98);
+					resultArray.add("Usuario > Password inválidos");
+					resultArrayVO.setMensaje(resultArray);
 				}
-				resultArrayVO.setMensaje(resultArray);
 			}else {
 				resultArrayVO.setCodigo(98);
-				resultArray.add("Usuario > Password inválidos");
+				resultArray.add("Usuario > No Activo");
 				resultArrayVO.setMensaje(resultArray);
 			}
+		
 		}catch(Exception e) {
 			resultArrayVO.setCodigo(99);
 			resultArray.add("Usuario > Password inválidos");
@@ -140,5 +171,7 @@ private UserEmpresaDAO userEmpresaDAO;
 		
 		return userEmpresaEntity;
 	}
+
+	
 
 }

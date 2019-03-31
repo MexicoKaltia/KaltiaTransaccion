@@ -25,7 +25,6 @@ import com.kaltia.kaltiatransaccion.mail.vo.MailVO;
 import com.kaltia.kaltiatransaccion.mail.vo.ResultVO;
 import com.kaltia.kaltiatransaccion.mail.vo.ValoresJSONVO;
 
-
 @Service 
 public class MailServiceImpl implements MailService{
  
@@ -34,8 +33,7 @@ public class MailServiceImpl implements MailService{
 	 */
 	private static final long serialVersionUID = 1L;
 	protected final Log logger = LogFactory.getLog(getClass());
-	 
-	
+	 	
 	@Autowired
 	private ResultVO resultVO;
 	@Autowired
@@ -44,26 +42,34 @@ public class MailServiceImpl implements MailService{
 	private MailVO mailVO;
 	
 	@Override
-	public ResultVO mailServiceCreate(ValoresJSONVO valoresJSONVO) {
+	public ResultVO mailServiceNotificarKUENuevo(ValoresJSONVO valoresJSONVO) {
 		
-		String userEmpresa = valoresJSONVO.getIdEmpresa().toString();
-		String correoIdUserEmpresa = clienteRest.getUserEmpresa(userEmpresa);
-		String correoEmpresa = clienteRest.getEmpresa(valoresJSONVO.getAction());
+//		String userEmpresa = valoresJSONVO.getIdEmpresa().toString();
+//		String correoIdUserEmpresa = clienteRest.getUserEmpresa(userEmpresa);
+//		String correoEmpresa = clienteRest.getEmpresa(valoresJSONVO.getAction());
+//		
+//		logger.info("userEmpresa:"+correoIdUserEmpresa); //OK
+//		logger.info("empresa:"+correoEmpresa); //OK
 		
-		logger.info("userEmpresa:"+correoIdUserEmpresa); //OK
-		logger.info("empresa:"+correoEmpresa); //OK
+		String[] valoresFinales = valoresJSONVO.getValoresFinales().split("\\++");
+		String body = "Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace"
+					+ " para verificar autenticidad:\n"
+					+ " http://31.220.63.183:8010/registroUser2?userSetup="+valoresFinales[0] ; 
 		
-//		mailVO.setAsunto(asunto);
-//		mailVO.setBody(body);
-//		mailVO.setMensaje(mensaje);
-//		mailVO.setUserDestino(userDestino);
-//		mailVO.setUserOrigen(userOrigen);
+		mailVO.setAsunto(valoresFinales [4]);
+		mailVO.setBody(body);
+		mailVO.setMensaje("/static/layout/notificarKUEActivo.html");
+		mailVO.setUserDestino(valoresFinales[3]);
+//		mailVO.setUserOrigen();
 		
 		resultVO = mandarCorreo(mailVO);
 		
 		
-		return null;
+		return resultVO;
 		}
+	
+	@Override
+	public ResultVO mailServiceCreate(ValoresJSONVO valoresJSONVO) {return null;}
 
 	@Override
 	public ResultVO mailServiceRead(String action) {return null;}
@@ -77,8 +83,10 @@ public class MailServiceImpl implements MailService{
 
 
 	 public ResultVO mandarCorreo(MailVO mailVO) {
+		 
+		 logger.info("Correo Destino: "+mailVO.getUserDestino());
 	  // El correo gmail de envío
-	  String correoEnvia = "hugogrivas@mexicocss.com";
+	  String correoEnvia = "kaltiaservicios@gmail.com";
 	  String claveCorreo = "H00W6odR";
 	 
 	  // La configuración para enviar correo
@@ -99,26 +107,23 @@ public class MailServiceImpl implements MailService{
 	   MimeMessage mimeMessage = new MimeMessage(session);
 	 
 	   // Agregar quien envía el correo
-	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Dato Java"));
+	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Kaltia Servicios"));
 	 
 	   // Los destinatarios
-	   InternetAddress[] internetAddresses = { new InternetAddress(
-	     "hrivas.cortes.2@gmail.com") };
+	   InternetAddress[] internetAddresses = { new InternetAddress(mailVO.getUserDestino()) };
 	 
 	   // Agregar los destinatarios al mensaje
-	   mimeMessage.setRecipients(Message.RecipientType.TO,
-	     internetAddresses);
+	   mimeMessage.setRecipients(Message.RecipientType.TO,internetAddresses);
 	 
 	   // Agregar el asunto al correo
-	   mimeMessage.setSubject("Dato Java Enviando Correo HTML.");
+	   mimeMessage.setSubject(mailVO.getAsunto());
 	 
 	   // Crear el multipart para agregar la parte del mensaje anterior
 	   Multipart multipart = new MimeMultipart();
 	 
 	   // Leer la plantilla
-	   InputStream inputStream = getClass().getResourceAsStream("/static/layout/PlantillaDJ.html");
-	   BufferedReader bufferedReader = new BufferedReader(
-	     new InputStreamReader(inputStream));
+	   InputStream inputStream = getClass().getResourceAsStream(mailVO.getMensaje());
+	   BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 	 
 	   // Almacenar el contenido de la plantilla en un StringBuffer
 	   String strLine;
@@ -126,6 +131,7 @@ public class MailServiceImpl implements MailService{
 	   while ((strLine = bufferedReader.readLine()) != null) {
 	    msjHTML.append(strLine);
 	   }
+	   msjHTML.append(mailVO.getBody());
 	 
 	   // Url del directorio donde estan las imagenes
 	   String urlImagenes = "";//"C:\\Kaltia\\KaltiaWorkbench\\KaltiaMail\\src\\images\\";
@@ -167,15 +173,20 @@ public class MailServiceImpl implements MailService{
 	   transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
 	   transport.close();
 	 
-	   System.out.println("Correo enviado");
+	   resultVO.setCodigo(0);
+	   resultVO.setMensaje("Correo Enviado");
+	   logger.info("Correo enviado");
 	  } catch (Exception ex) {
-	   ex.printStackTrace();
-	   System.out.println("Correo NO enviado");
+		  resultVO.setCodigo(99);
+		   resultVO.setMensaje("Correo NO Enviado");
+		  ex.printStackTrace();
+		  logger.info("Correo NO enviado");
 	  }
 	  
 	  return resultVO;
 	  
 	 }
+
 
 			 
  

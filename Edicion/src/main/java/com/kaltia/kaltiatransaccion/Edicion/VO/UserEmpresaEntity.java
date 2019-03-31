@@ -32,9 +32,17 @@ public class UserEmpresaEntity {
 	private String messageRegistro;
 	@Column
 	private String monitorRegistro;
+	@Column
+	private String statusRegistro;
 	
 	
 	
+	public String getStatusRegistro() {
+		return statusRegistro;
+	}
+	public void setStatusRegistro(String statusRegistro) {
+		this.statusRegistro = statusRegistro;
+	}
 	public String getMonitorRegistro() {
 		return monitorRegistro;
 	}

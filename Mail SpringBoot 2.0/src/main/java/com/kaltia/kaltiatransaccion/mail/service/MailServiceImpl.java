@@ -79,6 +79,15 @@ public class MailServiceImpl implements MailService{
 
 	@Override
 	public ResultVO mailServiceDelete() {return null;}
+	
+	@Override
+	public ResultVO mailServiceNotificaCita1(ValoresJSONVO valoresJSONVO) {
+		
+		
+		
+		return resultVO;
+	}
+	
 
 
 

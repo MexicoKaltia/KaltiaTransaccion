@@ -8,10 +8,12 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 public interface CitaService extends Serializable{
 	
-	public ResultVO citaServiceCreate();
-	public ResultArrayVO citaServiceRead(String action);
+	public ResultVO citaServiceCreate(ValoresJsonVO valoresJsonVO) throws Exception;
+	
+	public ResultVO citaServiceRead(String action);
 	public ResultVO citaServiceUpdate(ValoresJsonVO valoresJsonVO);
 	public ResultVO citaServiceDelete();
 
+	
 
 }

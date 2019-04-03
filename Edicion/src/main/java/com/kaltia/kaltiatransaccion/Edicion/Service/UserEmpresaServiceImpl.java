@@ -77,9 +77,64 @@ private UserEmpresaDAO userEmpresaDAO;
 		return resultVO;//.empresaCreateDAO(empresaEntity);
 	}
 	
+//	@Override
+//	public ResultVO userEmpresaCreate(String idUserEmpresa) {
+//		
+//		return null;
+//	}
+
 	@Override
-	public ResultVO userEmpresaCreate(String idUserEmpresa) {
+	public ResultVO userEmpresaRead(ValoresJsonVO valoresJsonVO) {
+		String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
+		logger.info(valoresJsonVO.getValoresFinales());
+		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
+		ArrayList<String> resultArray = new ArrayList<String>();
 		
+		try {  //identidad userEmpresa
+			userEmpresaEntity = userEmpresaDAO.findOne(valoresJsonVO.getAction()+valoresRegistro[0]);
+			if(userEmpresaEntity.getStatusRegistro().equals("activo")) {
+				if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
+					userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
+					userEmpresaDAO.save(userEmpresaEntity);
+					try { // Datos de los recursos de Empresa Valores de Horarios
+						resultVO = (citaServiceImpl.citaServiceRead(valoresJsonVO.getAction().toString()));
+						resultVO.setMensaje("Bienvenido "+userEmpresaEntity.getNombreRegistro()+" "+userEmpresaEntity.getApellidoRegistro());
+						
+						if(resultVO.getCodigo()==0) {
+							resultArray.add(userEmpresaEntity.getIdUserEmpresa());
+							resultArray.add(userEmpresaEntity.getNombreRegistro());
+							resultArray.addAll(resultVO.getMensajeArray());
+							
+						}else {
+							resultArray.add("Error de Fecha Calendario");
+						}
+						resultVO.setMensajeArray(resultArray);	
+					}catch(Exception e) {
+						resultVO.setCodigo(98);
+						//resultArray.add("Usuario > Password inválidos");
+						resultVO.setMensaje("Error en Obtener Datos Empresa");
+					}
+				}else {
+					resultVO.setCodigo(98);
+					//resultArray.add("Usuario > Password inválidos");
+					resultVO.setMensaje("Usuario > Password inválidos");
+				}
+			}else {
+				resultVO.setCodigo(98);
+				//resultArray.add();
+				resultVO.setMensaje("Usuario > No Activo");
+			}
+		}catch(Exception e) {
+			resultVO.setCodigo(99);
+			//resultArray.add();
+			resultVO.setMensaje("Usuario > Password inválidos");
+		}				
+		
+		return resultVO;
+	}
+
+	@Override
+	public ResultVO userEmpresaUpdate(String idUserEmpresa) {
 		try {
 			UserEmpresaEntity userEmpresaEntity = userEmpresaDAO.findOne(idUserEmpresa);
 			if(userEmpresaEntity.getStatusRegistro().equals("inicio")) {
@@ -97,61 +152,7 @@ private UserEmpresaDAO userEmpresaDAO;
 			e.printStackTrace();
 		}
 		
-		return resultVO;
-	}
-
-	@Override
-	public ResultArrayVO userEmpresaRead(ValoresJsonVO valoresJsonVO) {
-		String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
-		logger.info(valoresJsonVO.getValoresFinales());
-		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
-		ArrayList<String> resultArray = new ArrayList<String>();
-		
-		try {
-			userEmpresaEntity = userEmpresaDAO.findOne(valoresJsonVO.getAction()+valoresRegistro[0]);
-			if(userEmpresaEntity.getStatusRegistro().equals("activo")) {
-				if(userEmpresaEntity.getPassRegistro().equals(valoresRegistro[1])) {
-					userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
-					userEmpresaDAO.save(userEmpresaEntity);
-					resultArray.add(userEmpresaEntity.getIdUserEmpresa()+"++"+userEmpresaEntity.getNombreRegistro());
-			
-					resultArrayVO = citaServiceImpl.citaServiceRead(valoresJsonVO.getAction().toString());
-					if(resultArrayVO.getCodigo()==0) {
-						resultArray.addAll(resultArrayVO.getMensaje());
-					}else {
-						resultArray.add("Error de Fecha Calendario");
-					}
-					resultArrayVO.setMensaje(resultArray);
-				}else {
-					resultArrayVO.setCodigo(98);
-					resultArray.add("Usuario > Password inválidos");
-					resultArrayVO.setMensaje(resultArray);
-				}
-			}else {
-				resultArrayVO.setCodigo(98);
-				resultArray.add("Usuario > No Activo");
-				resultArrayVO.setMensaje(resultArray);
-			}
-		
-		}catch(Exception e) {
-			resultArrayVO.setCodigo(99);
-			resultArray.add("Usuario > Password inválidos");
-			resultArrayVO.setMensaje(resultArray);
-		}				
-		
-		
-		for(String campo : resultArrayVO.getMensaje()) {
-			logger.info(campo);
-		}
-		
-		return resultArrayVO;//.empresaCreateDAO(empresaEntity);
-	}
-
-	@Override
-	public ResultVO userEmpresaUpdate(ValoresJsonVO valoresJsonVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return resultVO;	}
 
 	@Override
 	public ResultVO userEmpresaDelete(ValoresJsonVO valoresJsonVO) {
@@ -159,18 +160,6 @@ private UserEmpresaDAO userEmpresaDAO;
 		return null;
 	}
 
-	@Override
-	public UserEmpresaEntity userEmpresaRead(String idUserEmpresa) {
-		
-		UserEmpresaEntity userEmpresaEntity = new UserEmpresaEntity();
-		try {
-			userEmpresaEntity = userEmpresaDAO.findOne(idUserEmpresa);
-		}catch(Exception e) {
-			userEmpresaEntity.setMessageRegistro(e.toString());
-		}				
-		
-		return userEmpresaEntity;
-	}
 
 	
 

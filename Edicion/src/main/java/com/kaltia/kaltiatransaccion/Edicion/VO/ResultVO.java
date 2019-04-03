@@ -1,7 +1,9 @@
 package com.kaltia.kaltiatransaccion.Edicion.VO;
 
 import java.io.Serializable;
-import java.lang.Integer;
+import java.util.ArrayList;
+
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +23,9 @@ public class ResultVO implements Serializable{
 	
 	private Integer codigo;
 	private String	mensaje;
+	private ArrayList<String> mensajeArray;
+	private String  response;
+	private JSONObject jsonResponse;
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -34,6 +39,28 @@ public class ResultVO implements Serializable{
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
+	
+	public String getResponse() {
+		return response;
+	}
+	public void setResponse(String response) {
+		this.response = response;
+	}
+	public JSONObject getJsonResponse() {
+		return jsonResponse;
+	}
+	public void setJsonResponse(JSONObject jsonResponse) {
+		this.jsonResponse = jsonResponse;
+	}
+	
+	public ArrayList<String> getMensajeArray() {
+		return mensajeArray;
+	}
+	public void setMensajeArray(ArrayList<String> mensajeArray) {
+		this.mensajeArray = mensajeArray;
+	}
+
+
 	
 	
 

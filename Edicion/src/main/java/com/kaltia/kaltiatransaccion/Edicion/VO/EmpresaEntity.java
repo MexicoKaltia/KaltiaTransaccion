@@ -47,6 +47,9 @@ public class EmpresaEntity {
 	private String empresaModoPago;
 	@Column
 	private String empresaFactura;
+	@Column
+	private String empresaCita;
+	
 	
 	public String getIdEmpresa() {
 		return idEmpresa;

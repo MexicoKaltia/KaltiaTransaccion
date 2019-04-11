@@ -228,7 +228,11 @@ private FooterDAO footerDAO;
 			}
 			break;
 		}
-		
+		logger.info(resultVO.getCodigo());
+		logger.info(resultVO.getJsonResponse());
+		logger.info(resultVO.getMensaje());
+		logger.info(resultVO.getMensajeArray());
+		logger.info(resultVO.getResponse());
 		return resultVO;
 	}
 

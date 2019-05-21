@@ -11,6 +11,7 @@ public class ValoresJsonVO {
 	private String IdEmpresa;
 	private String seccion;
 	private String valoresFinales;
+	
 	public String getAction() {
 		return action;
 	}

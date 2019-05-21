@@ -1,5 +1,7 @@
 package com.kaltia.kaltiatransaccion.Edicion.WS;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kaltia.kaltiatransaccion.Edicion.Service.CitaService;
+import com.kaltia.kaltiatransaccion.Edicion.Service.CitaEmpresaService;
 import com.kaltia.kaltiatransaccion.Edicion.Service.EdicionService;
 import com.kaltia.kaltiatransaccion.Edicion.Service.EmpresaService;
 import com.kaltia.kaltiatransaccion.Edicion.Service.UserEmpresaService;
-import com.kaltia.kaltiatransaccion.Edicion.Service.UserEmpresaServiceImpl;
 import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultArrayVO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
@@ -40,7 +41,7 @@ public class WSEdicion {
 	@Autowired
 	EmpresaService empresaService;
 	@Autowired
-	CitaService citaService;
+	CitaEmpresaService citaEmpresaService;
 	UserEmpresaEntity userEmpresaEntity;
 	EmpresaEntity empresaEntity;
 
@@ -130,7 +131,7 @@ public class WSEdicion {
 	public  ResultVO guardaCita1(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
 		logger.info("_________________________________________");
 			logger.info("guardaCita1");
-			resultVO = citaService.citaServiceCreate(valoresJsonVO);
+			resultVO = citaEmpresaService.citaEmpresaServiceUpdate(valoresJsonVO);
 
 		return  resultVO;
 	}
@@ -141,8 +142,31 @@ public class WSEdicion {
 		logger.info("_________________________________________");
 			logger.info("empresaCreate");
 
-		return  empresaService.empresaServiceCreate(valoresJsonVO.getAction().toString());
+		return  empresaService.empresaServiceCreate(valoresJsonVO);
 	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+	@PostMapping("/consultaUserEmpresa")
+	public  List<UserEmpresaEntity> consultaUserEmpresa(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
+		logger.info("_________________________________________");
+			logger.info("consultaUserEmpresa");
+			
+
+		return  userEmpresaService.userEmpresaReadList(valoresJsonVO.getAction());
+	}
+	
+	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+	@PostMapping("/readCita")
+	public  ResultVO citaServiceRead(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
+		logger.info("_________________________________________");
+			logger.info("consultaCita");
+			
+
+		return  citaEmpresaService.citaEmpresaServiceRead(valoresJsonVO.getAction());
+	}
+
+
+	
 
 
 

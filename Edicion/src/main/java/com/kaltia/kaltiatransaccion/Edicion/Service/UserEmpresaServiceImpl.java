@@ -1,6 +1,7 @@
 package com.kaltia.kaltiatransaccion.Edicion.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +25,7 @@ private ResultVO resultVO;
 @Autowired
 private ResultArrayVO resultArrayVO;
 @Autowired
-private CitaServiceImpl citaServiceImpl;
+private CitaEmpresaService citaEmpresaService;
 @Autowired
 private ClienteRestImpl clienteRestImpl;
 
@@ -77,11 +78,13 @@ private UserEmpresaDAO userEmpresaDAO;
 		return resultVO;//.empresaCreateDAO(empresaEntity);
 	}
 	
-//	@Override
-//	public ResultVO userEmpresaCreate(String idUserEmpresa) {
-//		
-//		return null;
-//	}
+	@Override
+	public List<UserEmpresaEntity> userEmpresaReadList(String userEmpresaAction) {
+		
+		List<UserEmpresaEntity> userEmpresaEntity = userEmpresaDAO.findByActionRegistro(userEmpresaAction);
+		
+		return null;
+	}
 
 	@Override
 	public ResultVO userEmpresaRead(ValoresJsonVO valoresJsonVO) {
@@ -97,7 +100,7 @@ private UserEmpresaDAO userEmpresaDAO;
 					userEmpresaEntity.setMonitorRegistro(valoresRegistro[2]);
 					userEmpresaDAO.save(userEmpresaEntity);
 					try { // Datos de los recursos de Empresa Valores de Horarios
-						resultVO = (citaServiceImpl.citaServiceRead(valoresJsonVO.getAction().toString()));
+						resultVO = (citaEmpresaService.citaEmpresaServiceRead(valoresJsonVO.getAction().toString()));
 						resultVO.setMensaje("Bienvenido "+userEmpresaEntity.getNombreRegistro()+" "+userEmpresaEntity.getApellidoRegistro());
 						
 						if(resultVO.getCodigo()==0) {
@@ -159,6 +162,8 @@ private UserEmpresaDAO userEmpresaDAO;
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 
 	

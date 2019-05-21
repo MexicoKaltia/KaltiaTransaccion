@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.kaltia.kaltiatransaccion.Edicion.DAO.EmpresaDAO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
+import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 @Service
 public class EmpresaServiceImpl implements EmpresaService {
@@ -28,11 +29,27 @@ public class EmpresaServiceImpl implements EmpresaService {
 	private EmpresaDAO empresaDAO;
 	@Autowired
 	private ResultVO resultVO;
+	@Autowired
+	private CitaEmpresaService citaEmpresaService;
 
 
 
 	@Override
-	public ResultVO empresaServiceCreate(String idAction) {
+	public ResultVO empresaServiceCreate(ValoresJsonVO valoresJsonVO) {
+		String idAction = valoresJsonVO.getAction();
+		logger.info("valoresJsonVO:"+valoresJsonVO.getValoresFinales());
+		String []valoresFinales = valoresJsonVO.getValoresFinales().split("\\++");
+		
+		if(!valoresFinales[1].equals("No Activo")) {
+			try {
+				citaEmpresaService.citaEmpresaServiceCreate(idAction, valoresFinales[1]);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		try {
 				Runtime rt = Runtime.getRuntime();
 			    String commands = ("/kaltia/shell/EmpresaNueva.sh "+idAction);

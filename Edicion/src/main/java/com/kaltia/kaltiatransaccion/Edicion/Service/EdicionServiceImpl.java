@@ -24,11 +24,9 @@ public class EdicionServiceImpl implements EdicionService{
 	
 @Autowired
 private ResultVO resultVO;
-
 @Autowired
 @Qualifier("empresaDAO")
 private EmpresaDAO empresaDAO;
-
 @Autowired
 @Qualifier("headerDAO")
 private HeaderDAO headerDAO;
@@ -78,12 +76,12 @@ private FooterDAO footerDAO;
 	public ResultVO edicionServiceUpdate(ValoresJsonVO valoresJsonVO) {
 		
 		String modulo = valoresJsonVO.getSeccion().substring(0, valoresJsonVO.getSeccion().indexOf("Seccion"));
-		logger.info("\nIdEmpresa:" + valoresJsonVO.getIdEmpresa() + "\nModulo:" + modulo +  "\nValoresFinales:" + valoresJsonVO.getValoresFinales());
+		logger.info("\nAction:" + valoresJsonVO.getAction() + "\nIdEmpresa:" + valoresJsonVO.getIdEmpresa() + "\nModulo:" + modulo +  "\nValoresFinales:" + valoresJsonVO.getValoresFinales());
 		
 		switch (modulo) {
 		case "header":
 			HeaderEntity headerEntity = new HeaderEntity();
-			headerEntity = headerDAO.findOne(valoresJsonVO.getIdEmpresa()+"-"+modulo);
+			headerEntity = headerDAO.findOne(valoresJsonVO.getAction()+"-"+modulo);
 			switch (valoresJsonVO.getSeccion().toString()) {
 			case "headerSeccion1":
 				headerEntity.setHeaderSeccion1(valoresJsonVO.getValoresFinales());
@@ -128,7 +126,7 @@ private FooterDAO footerDAO;
 			
 		case "body":
 			BodyEntity bodyEntity = new BodyEntity();
-			bodyEntity = bodyDAO.findOne(valoresJsonVO.getIdEmpresa()+"-"+modulo);
+			bodyEntity = bodyDAO.findOne(valoresJsonVO.getAction()+"-"+modulo);
 			switch (valoresJsonVO.getSeccion().toString()) {
 			case "bodySeccionArray1":
 				bodyEntity.setBodySeccionArray1(valoresJsonVO.getValoresFinales());
@@ -194,7 +192,7 @@ private FooterDAO footerDAO;
 			
 		case "footer":
 			FooterEntity footerEntity = new FooterEntity();
-			footerEntity = footerDAO.findOne(valoresJsonVO.getIdEmpresa()+"-"+modulo);
+			footerEntity = footerDAO.findOne(valoresJsonVO.getAction()+"-"+modulo);
 			switch (valoresJsonVO.getSeccion().toString()) {
 			case "footerSeccion1":
 				footerEntity.setFooterSeccion1(valoresJsonVO.getValoresFinales());

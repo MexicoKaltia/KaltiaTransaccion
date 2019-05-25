@@ -54,6 +54,7 @@ public class CitaEmpresaServiceImpl implements CitaEmpresaService{
 		citaEntity.setCitaOctubre("{}");
 		citaEntity.setCitaNoviembre("{}");
 		citaEntity.setCitaDiciembre("{}");
+		
 		citaEmpresaDAO.save(citaEntity);
 		
 		return null;

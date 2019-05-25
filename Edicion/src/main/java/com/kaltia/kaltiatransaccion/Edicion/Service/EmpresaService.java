@@ -12,5 +12,7 @@ public interface EmpresaService extends Serializable{
 	public EmpresaEntity empresaServiceRead(String idEmpresa);
 	public ResultVO empresaServiceUpdate(EmpresaEntity empresaEntity);
 	public ResultVO empresaServiceDelete(String idEmpresa);
+	
+	public ResultVO empresaServiceCreateModulos(ValoresJsonVO valoresJsonVO);
 
 }

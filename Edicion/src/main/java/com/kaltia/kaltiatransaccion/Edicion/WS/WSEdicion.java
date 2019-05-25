@@ -137,12 +137,12 @@ public class WSEdicion {
 	}
 
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
-	@PostMapping("/empresaCreate")
+	@PostMapping("/empresaModulosCreate")
 	public  ResultVO empresaCreate(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
 		logger.info("_________________________________________");
-			logger.info("empresaCreate");
+			logger.info("empresaModulosCreate");
 
-		return  empresaService.empresaServiceCreate(valoresJsonVO);
+		return  empresaService.empresaServiceCreateModulos(valoresJsonVO);
 	}
 	
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})

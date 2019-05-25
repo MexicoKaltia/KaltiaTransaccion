@@ -32,21 +32,28 @@ public class EmpresaServiceImpl implements EmpresaService {
 	@Autowired
 	private CitaEmpresaService citaEmpresaService;
 
-
-
 	@Override
 	public ResultVO empresaServiceCreate(ValoresJsonVO valoresJsonVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultVO empresaServiceCreateModulos(ValoresJsonVO valoresJsonVO) {
 		String idAction = valoresJsonVO.getAction();
 		logger.info("valoresJsonVO:"+valoresJsonVO.getValoresFinales());
 		String []valoresFinales = valoresJsonVO.getValoresFinales().split("\\++");
 		
-		if(!valoresFinales[1].equals("No Activo")) {
+		if(!valoresFinales[0].equals("No Activo")) {
 			try {
-				citaEmpresaService.citaEmpresaServiceCreate(idAction, valoresFinales[1]);
+				citaEmpresaService.citaEmpresaServiceCreate(idAction, valoresFinales[0]);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				//logica por hay error en guardar los horarios
 			}
+			/*
+			 * Aqui puedo hacer algo mas con los modulos
+			 */
 		}
 		
 		
@@ -100,5 +107,6 @@ public class EmpresaServiceImpl implements EmpresaService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

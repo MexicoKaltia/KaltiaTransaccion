@@ -106,15 +106,21 @@ public class CitaEmpresaServiceImpl implements CitaEmpresaService{
 		
 		try {
 
-			String[] fecha = valoresJsonVO.getValoresFinales().split("\\/");  	//"20/05/2019|1100|DescripcionCita"
+			String[] fecha = valoresJsonVO.getValoresFinales().split("\\/");  	//"20/05/2019|1100|DescripcionCita|status"
 			String diaCita = fecha[0];
-			String horaCita = fecha[2].substring(fecha[2].indexOf('|')+1, fecha[2].lastIndexOf('|'));//.length());
-			String descripcionCita= fecha[2].substring(fecha[2].lastIndexOf('|')+1,fecha[2].length());
-			logger.info("citaEmpresaServiceCreateFecha[0]:"+fecha[0]);
+			String[] tmp = fecha[2].split("\\|");
+			String horaCita = tmp[1];//fecha[2].substring(fecha[2].indexOf('|')+1, fecha[2].lastIndexOf('|'));//.length());
+			String descripcionCita= tmp[2];//fecha[2].substring(fecha[2].lastIndexOf('|')+1,fecha[2].length());
+			String status = tmp[3];//descripcionCita.substring(descripcionCita.lastIndexOf('|')+1,descripcionCita.length());
+			//descripcionCita = descripcionCita.substring(0,descripcionCita.indexOf('|')-1);
+			
+//			logger.info("descripcionCita:"+descripcionCita);
+//			logger.info("status:"+status);
 				
 			JSONObject elementoA = new JSONObject();
 			elementoA.put("userEmpresa", userEmpresa);
 			elementoA.put("descripcionCita",descripcionCita);
+			elementoA.put("status",status);
 
 			JSONObject mesCitaEmpresa = new JSONObject();
 			JSONObject mesCitaEmpresaActualizado = mesCitaEmpresa;
@@ -184,7 +190,7 @@ public class CitaEmpresaServiceImpl implements CitaEmpresaService{
 	
 	
 	private String numMes(int mes, CitaEmpresaEntity citaEmpresaEntity) {
-		logger.info("mes:"+(mes+1));
+//		logger.info("mes:"+(mes+1));
 		String columna = "";
 //		JSONObject columna = new JSONObject();
 		switch (mes) {		
@@ -230,7 +236,7 @@ public class CitaEmpresaServiceImpl implements CitaEmpresaService{
 	
 private CitaEmpresaEntity numMesSet(Integer mes, CitaEmpresaEntity  citaEmpresaEntity ,  String mesCitaEmpresa) {
 		
-		logger.info("mes:"+(mes+1));
+//		logger.info("mes:"+(mes+1));
 		String columna = "";
 		
 		switch (mes) {		

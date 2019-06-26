@@ -52,10 +52,13 @@ public class MailServiceImpl implements MailService{
 //		logger.info("empresa:"+correoEmpresa); //OK
 		
 		String[] valoresFinales = valoresJSONVO.getValoresFinales().split("\\++");
-		String body = "Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace"
-					+ " para verificar autenticidad:\n"
-					+ " http://31.220.63.183:8010/registroUser2?userSetup="+valoresFinales[0] ; 
+		String body = 		"<div><h1>Bienvenido a Empresa Nombre Corto</h1><p>Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace para verificar autenticidad:<p/>"
+				            +"<a target='_blank' href='http://31.220.63.183:8010/registroUser2?userSetup='"+valoresFinales[0]+"'>Ingrese Aqui</a> <p>En breve un asesor se pondrá en contacto. Gracias</p>"
+				            +"</div></body></html>";
+ 
 		
+		
+
 		mailVO.setAsunto(valoresFinales [4]);
 		mailVO.setBody(body);
 		mailVO.setMensaje("/static/layout/notificarKUEActivo.html");
@@ -95,7 +98,7 @@ public class MailServiceImpl implements MailService{
 		 
 		 logger.info("Correo Destino: "+mailVO.getUserDestino());
 	  // El correo gmail de envío
-	  String correoEnvia = "kaltiaservicios@gmail.com";
+	  String correoEnvia = "kaltiaservicios@kaltia-mx.xyz";
 	  String claveCorreo = "H00W6odR";
 	 
 	  // La configuración para enviar correo
@@ -116,7 +119,7 @@ public class MailServiceImpl implements MailService{
 	   MimeMessage mimeMessage = new MimeMessage(session);
 	 
 	   // Agregar quien envía el correo
-	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Kaltia Servicios"));
+	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Kaltia NombreEmpresa"));
 	 
 	   // Los destinatarios
 	   InternetAddress[] internetAddresses = { new InternetAddress(mailVO.getUserDestino()) };

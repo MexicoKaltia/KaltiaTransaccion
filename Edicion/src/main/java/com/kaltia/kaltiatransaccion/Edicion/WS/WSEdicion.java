@@ -80,20 +80,18 @@ public class WSEdicion {
 			logger.info("EdicionSeccion");
 			resultVO = userEmpresaService.userEmpresaCreate(valoresJsonVO);
 
-
 		return  resultVO;
 	}
 
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
 	@GetMapping("/registroUser2")
-	public  ResultVO registroUser2(@RequestParam("userSetup") String idUserEmpresa) {
+	public  String registroUser2(@RequestParam("userSetup") String idUserEmpresa) {
 
 		logger.info("_________________________________________");
 			logger.info("registroUser2 param: "+idUserEmpresa);
 			resultVO = userEmpresaService.userEmpresaUpdate(idUserEmpresa);
 
-
-		return  resultVO;
+		return  "Status Usuario: " + idUserEmpresa + "-" + resultVO.getMensaje() + " \n \n Gracias por registrarte, en breve un asesor se pondrá en contacto";
 	}
 
 	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})

@@ -42,10 +42,7 @@ public class WSMail {
 		this.mailService = mailService;
 	}
 	
-	@RequestMapping(
-			method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE
-			)
+	@RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public VOHora getHora() {
 		return new VOHora(serviceHora.hora());

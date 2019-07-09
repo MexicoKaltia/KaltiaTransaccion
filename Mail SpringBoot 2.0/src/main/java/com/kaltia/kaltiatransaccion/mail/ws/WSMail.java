@@ -61,12 +61,12 @@ public class WSMail {
 		return resultVO;
 	}
 	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
+//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
 	@RequestMapping(method = RequestMethod.POST,path = "/notificarKUENuevo",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO notificarKUENuevo(@RequestBody ValoresJSONVO valoresJSONVO) {
 
-		logger.info("valoresJson Action: "+valoresJSONVO.getAction());  //OK
-		logger.info("valoresJson valoresFinales: "+valoresJSONVO.getValoresFinales());  //OK
+		logger.info("valoresJson Action:"+valoresJSONVO.getAction());  //OK
+		logger.info("valoresJson valoresFinales:"+valoresJSONVO.getValoresFinales());  //OK
 		
 		resultVO = mailService.mailServiceNotificarKUENuevo(valoresJSONVO);
 		

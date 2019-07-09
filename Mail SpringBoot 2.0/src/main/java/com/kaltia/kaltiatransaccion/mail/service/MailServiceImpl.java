@@ -51,9 +51,12 @@ public class MailServiceImpl implements MailService{
 //		logger.info("userEmpresa:"+correoIdUserEmpresa); //OK
 //		logger.info("empresa:"+correoEmpresa); //OK
 		
+		
+		
 		String[] valoresFinales = valoresJSONVO.getValoresFinales().split("\\++");
+		logger.info("idUsuario:"+valoresFinales[0]);
 		String body = 		"<div><h1>Bienvenido a Empresa Nombre Corto</h1><p>Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace para verificar autenticidad:<p/>"
-				            +"<a target='_blank' href='http://31.220.63.183:8010/registroUser2?userSetup='"+valoresFinales[0]+"'>Ingrese Aqui</a> <p>En breve un asesor se pondrá en contacto. Gracias</p>"
+				            +"<a target='_blank' href='http://31.220.63.183:8010/registroUser2?userSetup="+valoresFinales[0]+"'>Ingrese Aqui</a> <p>En breve un asesor se pondrá en contacto. Gracias</p>"
 				            +"</div></body></html>";
  
 		
@@ -103,7 +106,8 @@ public class MailServiceImpl implements MailService{
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();
-	  properties.put("mail.smtp.host", "smtp.gmail.com");
+//	  properties.put("mail.smtp.host", "smtp.gmail.com");
+	  properties.put("mail.smtp.host", "smtp.hostinger.com");
 	  properties.put("mail.smtp.starttls.enable", "true");
 	  properties.put("mail.smtp.port", "587");
 	  properties.put("mail.smtp.auth", "true");

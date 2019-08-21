@@ -11,7 +11,14 @@ public class ValoresJsonVO {
 	private String IdEmpresa;
 	private String seccion;
 	private String valoresFinales;
+	private String valoresAuxiliares;
 	
+	public String getValoresAuxiliares() {
+		return valoresAuxiliares;
+	}
+	public void setValoresAuxiliares(String valoresAuxiliares) {
+		this.valoresAuxiliares = valoresAuxiliares;
+	}
 	public String getAction() {
 		return action;
 	}

@@ -37,6 +37,45 @@ public class FooterEntity {
 	private String footerAux2 ;
 	@Column
 	private String footerVarios ;
+	@Column
+	private String footerSecciones ;
+	@Column
+	private String footerSeccionUbicacion ;
+	@Column
+	private String footerSeccionRedes ;
+	
+	
+	
+	
+	
+	
+
+	
+	
+	public String getIdFooter() {
+		return idFooter;
+	}
+	public void setIdFooter(String idFooter) {
+		this.idFooter = idFooter;
+	}
+	public String getFooterSecciones() {
+		return footerSecciones;
+	}
+	public void setFooterSecciones(String footerSecciones) {
+		this.footerSecciones = footerSecciones;
+	}
+	public String getFooterSeccionUbicacion() {
+		return footerSeccionUbicacion;
+	}
+	public void setFooterSeccionUbicacion(String footerSeccionUbicacion) {
+		this.footerSeccionUbicacion = footerSeccionUbicacion;
+	}
+	public String getFooterSeccionRedes() {
+		return footerSeccionRedes;
+	}
+	public void setFooterSeccionRedes(String footerSeccionRedes) {
+		this.footerSeccionRedes = footerSeccionRedes;
+	}
 	public String getIdEmpresa() {
 		return idEmpresa;
 	}

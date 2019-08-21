@@ -215,6 +215,15 @@ private FooterDAO footerDAO;
 			case "footerSeccionArray2":
 				footerEntity.setFooterSeccionArray2(valoresJsonVO.getValoresFinales());
 				break;
+			case "footerSecciones":
+				footerEntity.setFooterSecciones(valoresJsonVO.getValoresFinales());
+				break;
+			case "footerSeccionUbicacion":
+				footerEntity.setFooterSeccionUbicacion(valoresJsonVO.getValoresFinales());
+				break;
+			case "footerSeccionRedes":
+				footerEntity.setFooterSeccionRedes(valoresJsonVO.getValoresFinales());
+				break;
 			}
 			try {
 				footerDAO.save(footerEntity);

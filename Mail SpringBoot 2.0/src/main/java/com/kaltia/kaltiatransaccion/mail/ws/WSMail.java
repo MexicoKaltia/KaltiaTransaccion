@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kaltia.kaltiatransaccion.mail.service.ServiceHora;
+import com.kaltia.kaltiatransaccion.mail.util.MailUtil;
 import com.kaltia.kaltiatransaccion.mail.service.MailService;
 import com.kaltia.kaltiatransaccion.mail.service.MailServiceImpl;
 import com.kaltia.kaltiatransaccion.mail.vo.MailVO;
@@ -36,7 +37,6 @@ public class WSMail {
 	private MailVO mailVO;
 	@Autowired
 	private ResultVO resultVO;
-	
 	@Autowired
 	public WSMail(MailServiceImpl mailService) {
 		this.mailService = mailService;
@@ -45,6 +45,7 @@ public class WSMail {
 	@RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public VOHora getHora() {
+		MailUtil.printWSEdicion(new ValoresJSONVO(""), "/");
 		return new VOHora(serviceHora.hora());
 		//return "hora:"+serviceHora.hora(); 
 	}
@@ -53,7 +54,7 @@ public class WSMail {
 	@RequestMapping(method = RequestMethod.POST,path = "{envioMail}",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO envioMail(@RequestBody ValoresJSONVO valoresJSONVO) {
 		String inicio = serviceHora.hora();
-//		logger.info(valoresJSONVO.getIdEmpresa());  //OK
+		MailUtil.printWSEdicion(valoresJSONVO, "/{envioMail}");
 		resultVO = mailService.mailServiceCreate(valoresJSONVO);
 		
 		mailVO.setMensaje("inicio:"+inicio+"\t final:"+serviceHora.hora());
@@ -65,9 +66,7 @@ public class WSMail {
 	@RequestMapping(method = RequestMethod.POST,path = "/notificarKUENuevo",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO notificarKUENuevo(@RequestBody ValoresJSONVO valoresJSONVO) {
 
-		logger.info("valoresJson Action:"+valoresJSONVO.getAction());  //OK
-		logger.info("valoresJson valoresFinales:"+valoresJSONVO.getValoresFinales());  //OK
-		
+		MailUtil.printWSEdicion(valoresJSONVO, "/notificarKUENuevo");
 		resultVO = mailService.mailServiceNotificarKUENuevo(valoresJSONVO);
 		
 		return resultVO;
@@ -77,9 +76,7 @@ public class WSMail {
 	@RequestMapping(method = RequestMethod.POST,path = "/cita1",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO cita1(@RequestBody ValoresJSONVO valoresJSONVO) {
 
-		logger.info("valoresJson Action: "+valoresJSONVO.getAction());  //OK
-		logger.info("valoresJson valoresFinales: "+valoresJSONVO.getValoresFinales());  //OK
-		
+		MailUtil.printWSEdicion(valoresJSONVO, "/notificarKUENuevo");
 		resultVO = mailService.mailServiceNotificaCita1(valoresJSONVO);
 		
 		return resultVO;

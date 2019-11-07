@@ -26,7 +26,14 @@ public class ResultVO implements Serializable{
 	private ArrayList<String> mensajeArray;
 	private String  response;
 	private JSONObject jsonResponse;
+	private ArrayList<JSONObject> jsonResponseArray;
 	
+	public ArrayList<JSONObject> getJsonResponseArray() {
+		return jsonResponseArray;
+	}
+	public void setJsonResponseArray(ArrayList<JSONObject> jsonResponseArray) {
+		this.jsonResponseArray = jsonResponseArray;
+	}
 	public Integer getCodigo() {
 		return codigo;
 	}

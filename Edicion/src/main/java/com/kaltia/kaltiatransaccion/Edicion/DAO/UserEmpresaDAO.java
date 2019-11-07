@@ -12,6 +12,7 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 public interface UserEmpresaDAO extends JpaRepository<UserEmpresaEntity, Serializable>{
 	
 	public List<UserEmpresaEntity> findByActionRegistro(String actionRegistro);
+	public List<UserEmpresaEntity> findByIdUserEmpresa(String idUserEmpresa);
 	
 //	public  ResultVO empresaCreateDAO(EmpresaEntity empresaEntity);
 //	public abstract ResultVO empresaReadDAO();

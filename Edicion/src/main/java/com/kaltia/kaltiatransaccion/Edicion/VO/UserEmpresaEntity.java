@@ -15,6 +15,8 @@ public class UserEmpresaEntity {
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String idUserEmpresa;
 	@Column
+	private String idEmpresa;
+	@Column
 	private String actionRegistro;
 	@Column
 	private String nombreRegistro;
@@ -37,6 +39,12 @@ public class UserEmpresaEntity {
 	
 	
 	
+	public String getIdEmpresa() {
+		return idEmpresa;
+	}
+	public void setIdEmpresa(String idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
 	public String getStatusRegistro() {
 		return statusRegistro;
 	}

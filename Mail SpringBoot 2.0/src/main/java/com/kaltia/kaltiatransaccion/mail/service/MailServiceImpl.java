@@ -19,7 +19,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.kaltia.kaltiatransaccion.mail.vo.MailVO;
 import com.kaltia.kaltiatransaccion.mail.vo.ResultVO;
@@ -44,18 +43,10 @@ public class MailServiceImpl implements MailService{
 	@Override
 	public ResultVO mailServiceNotificarKUENuevo(ValoresJSONVO valoresJSONVO) {
 		
-//		String userEmpresa = valoresJSONVO.getIdEmpresa().toString();
-//		String correoIdUserEmpresa = clienteRest.getUserEmpresa(userEmpresa);
-//		String correoEmpresa = clienteRest.getEmpresa(valoresJSONVO.getAction());
-//		
-//		logger.info("userEmpresa:"+correoIdUserEmpresa); //OK
-//		logger.info("empresa:"+correoEmpresa); //OK
-		
-		
-		
 		String[] valoresFinales = valoresJSONVO.getValoresFinales().split("\\++");
 		logger.info("idUsuario:"+valoresFinales[0]);
-		String body = 		"<div><h1>Bienvenido a Empresa Nombre Corto</h1><p>Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace para verificar autenticidad:<p/>"
+		logger.info("idEmpresa:"+valoresJSONVO.getIdEmpresa());
+		String body = 		"<div><h1>Bienvenido a "+valoresJSONVO.getIdEmpresa()+"</h1><p>Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace para verificar autenticidad:<p/>"
 				            +"<a target='_blank' href='http://31.220.63.183:8010/registroUser2?userSetup="+valoresFinales[0]+"'>Ingrese Aqui</a> <p>En breve un asesor se pondrá en contacto. Gracias</p>"
 				            +"</div></body></html>";
  
@@ -101,7 +92,7 @@ public class MailServiceImpl implements MailService{
 		 
 		 logger.info("Correo Destino: "+mailVO.getUserDestino());
 	  // El correo gmail de envío
-	  String correoEnvia = "kaltiaservicios@kaltia-mx.xyz";
+	  String correoEnvia = "notificaciones@kaltiaservicios.tech";
 	  String claveCorreo = "H00W6odR";
 	 
 	  // La configuración para enviar correo
@@ -202,6 +193,14 @@ public class MailServiceImpl implements MailService{
 	  return resultVO;
 	  
 	 }
+
+	public ClienteRest getClienteRest() {
+		return clienteRest;
+	}
+
+	public void setClienteRest(ClienteRest clienteRest) {
+		this.clienteRest = clienteRest;
+	}
 
 
 			 

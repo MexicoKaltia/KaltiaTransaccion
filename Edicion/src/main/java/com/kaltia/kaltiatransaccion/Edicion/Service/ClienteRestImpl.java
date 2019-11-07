@@ -3,13 +3,11 @@ package com.kaltia.kaltiatransaccion.Edicion.Service;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,7 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 		
 //		static final String URL_GET_USER_EMPRESA = "http://31.220.60.92:8010/userEmpresaRead";
 //		static final String URL_GET_EMPRESA = 		"http://31.220.60.92:8010/empresaRead";
+//		static final String NOTIFICARKUENUEVO =    "http://31.220.60.92:8012/mail/notificarKUENuevo";
 		
 		////////////   URL LOCAL /////////////////
 		static final String URL_GET_USER_EMPRESA = "http://localhost:8010/userEmpresaRead";
@@ -53,13 +52,14 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 //				 jsonRequest.put("email", userEmpresaEntity.getEmailRegistro());
 				 
 				 jsonRequest.put("action", userEmpresaEntity.getActionRegistro());
+				 jsonRequest.put("idEmpresa", userEmpresaEntity.getIdEmpresa());
 				 jsonRequest.put("valoresFinales", userEmpresaEntity.getIdUserEmpresa()+"++"
 												 + userEmpresaEntity.getNombreRegistro()+"++"
 												 + userEmpresaEntity.getApellidoRegistro()+"++"
 												 + userEmpresaEntity.getEmailRegistro()+"++"
 												 + tituloMail);
 				 
-				    Map req_content = new HashMap();
+				    HashMap<Object, Object> req_content = new HashMap<Object,Object>();
 			        req_content.put("req_content", jsonRequest);
 	 
 			resultVO = getTemplate(NOTIFICARKUENUEVO,POST, jsonRequest);

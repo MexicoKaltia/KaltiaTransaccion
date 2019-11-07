@@ -7,12 +7,43 @@ public class ValoresJsonVO {
 	
 	public ValoresJsonVO() {}
 	
-	private String action;
+	private String action;	
 	private String IdEmpresa;
 	private String seccion;
 	private String valoresFinales;
 	private String valoresAuxiliares;
+	private String string;
+		
+	public ValoresJsonVO(String action, String idEmpresa, String seccion, String valoresFinales,
+			String valoresAuxiliares, String string) {
+		super();
+		this.action = action;
+		this.IdEmpresa = idEmpresa;
+		this.seccion = seccion;
+		this.valoresFinales = valoresFinales;
+		this.valoresAuxiliares = valoresAuxiliares;
+		this.string = string;
+	}
 	
+	public ValoresJsonVO(String string) {
+		this.string = string;
+	}
+
+	@Override
+	public String toString() {
+		return "ValoresJsonVO [action=" + action + ", IdEmpresa=" + IdEmpresa + ", seccion=" + seccion
+				+ ", valoresFinales=" + valoresFinales + ", valoresAuxiliares=" + valoresAuxiliares + ", string="
+				+ string + "]";
+	}
+
+	public String getString() {
+		return string;
+	}
+
+	public void setString(String string) {
+		this.string = string;
+	}
+
 	public String getValoresAuxiliares() {
 		return valoresAuxiliares;
 	}

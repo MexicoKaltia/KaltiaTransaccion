@@ -45,6 +45,7 @@ private UserEmpresaDAO userEmpresaDAO;
 				
 				String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
 				userEmpresaEntity.setIdUserEmpresa(valoresJsonVO.getAction()+valoresRegistro[4]);
+				userEmpresaEntity.setIdEmpresa(valoresJsonVO.getIdEmpresa());
 				userEmpresaEntity.setActionRegistro(valoresJsonVO.getAction());
 				userEmpresaEntity.setNombreRegistro(valoresRegistro[0]);
 				userEmpresaEntity.setApellidoRegistro(valoresRegistro[1]);
@@ -79,11 +80,15 @@ private UserEmpresaDAO userEmpresaDAO;
 	}
 	
 	@Override
-	public List<UserEmpresaEntity> userEmpresaReadList(String userEmpresaAction) {
+	public List<UserEmpresaEntity> userEmpresaReadList(String idAction, String idUserEmpresa) {
+		List<UserEmpresaEntity> userEmpresaEntity =new ArrayList<UserEmpresaEntity>();
+		if(idUserEmpresa.equals("0")) {
+			userEmpresaEntity = userEmpresaDAO.findByActionRegistro(idAction);
+		}else {
+			userEmpresaEntity = userEmpresaDAO.findByIdUserEmpresa(idUserEmpresa);
+		}
 		
-		List<UserEmpresaEntity> userEmpresaEntity = userEmpresaDAO.findByActionRegistro(userEmpresaAction);
-		
-		return null;
+		return userEmpresaEntity;
 	}
 
 	@Override
@@ -161,6 +166,14 @@ private UserEmpresaDAO userEmpresaDAO;
 	public ResultVO userEmpresaDelete(ValoresJsonVO valoresJsonVO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public ResultArrayVO getResultArrayVO() {
+		return resultArrayVO;
+	}
+
+	public void setResultArrayVO(ResultArrayVO resultArrayVO) {
+		this.resultArrayVO = resultArrayVO;
 	}
 
 	

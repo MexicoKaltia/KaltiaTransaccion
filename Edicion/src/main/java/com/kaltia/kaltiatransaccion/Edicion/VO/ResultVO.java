@@ -28,6 +28,27 @@ public class ResultVO implements Serializable{
 	private JSONObject jsonResponse;
 	private ArrayList<JSONObject> jsonResponseArray;
 	
+	public ResultVO(Integer codigo, String mensaje, ArrayList<String> mensajeArray, String response,
+			JSONObject jsonResponse, ArrayList<JSONObject> jsonResponseArray) {
+		super();
+		this.codigo = codigo;
+		this.mensaje = mensaje;
+		this.mensajeArray = mensajeArray;
+		this.response = response;
+		this.jsonResponse = jsonResponse;
+		this.jsonResponseArray = jsonResponseArray;
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "ResultVO [codigo=" + codigo + ", mensaje=" + mensaje + ", mensajeArray=" + mensajeArray + ", response="
+				+ response + ", jsonResponse=" + jsonResponse + ", jsonResponseArray=" + jsonResponseArray + "]";
+	}
+
+
+
 	public ArrayList<JSONObject> getJsonResponseArray() {
 		return jsonResponseArray;
 	}

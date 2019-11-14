@@ -66,6 +66,9 @@ private UserEmpresaDAO userEmpresaDAO;
 		}
 		if(resultVO.getCodigo() == 0) {
 			try {
+				/*
+				 * Envia correo de validacion UserEmpresaCreate
+				 */
 				resultVO = (ResultVO)clienteRestImpl.notificarKUENuevo(userEmpresaEntity);
 				resultVO.setMensaje("Create UserEmpresa " +resultVO.getMensaje()+"\n Favor verificar su correo para validar acceso");
 			}catch(Exception e) {
@@ -163,9 +166,21 @@ private UserEmpresaDAO userEmpresaDAO;
 		return resultVO;	}
 
 	@Override
-	public ResultVO userEmpresaDelete(ValoresJsonVO valoresJsonVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultVO userEmpresaDelete(String idUserEmpresa) {
+		
+		try {
+			userEmpresaDAO.delete(idUserEmpresa);
+			resultVO.setCodigo(0);
+			resultVO.setMensaje("Usuario "+idUserEmpresa+" ha sido eliminado");
+			logger.info(resultVO.getMensaje());
+		}catch(Exception e) {
+			resultVO.setCodigo(99);
+			resultVO.setMensaje("Error al eliminar:"+idUserEmpresa);
+			logger.info(resultVO.getMensaje());
+		}
+		
+		
+		return resultVO;
 	}
 
 	public ResultArrayVO getResultArrayVO() {

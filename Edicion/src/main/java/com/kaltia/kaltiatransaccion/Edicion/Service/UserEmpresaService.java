@@ -15,7 +15,7 @@ public interface UserEmpresaService {
 	public List<UserEmpresaEntity> userEmpresaReadList(String idAction, String userEmpresaAction);
 //	public UserEmpresaEntity userEmpresaRead(String idUserEmpresa);
 	public ResultVO userEmpresaUpdate(String idUserEmpresa);
-	public ResultVO userEmpresaDelete(ValoresJsonVO valoresJsonVO);
+	public ResultVO userEmpresaDelete(String idUserEmpresa);
 
 
 }

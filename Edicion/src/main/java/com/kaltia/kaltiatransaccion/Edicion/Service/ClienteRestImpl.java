@@ -20,9 +20,9 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 	public class ClienteRestImpl implements ClienteRest {
 
 		
-		static final String URL_GET_USER_EMPRESA = "http://31.220.60.92:8010/userEmpresaRead";
-		static final String URL_GET_EMPRESA = 		"http://31.220.60.92:8010/empresaRead";
-		static final String NOTIFICARKUENUEVO =    "http://31.220.60.92:8012/mail/notificarKUENuevo";
+		static final String URL_GET_USER_EMPRESA = "http://31.220.63.183:8010/userEmpresaRead";
+		static final String URL_GET_EMPRESA = 		"http://31.220.63.183:8010/empresaRead";
+		static final String NOTIFICARKUENUEVO =    "http://31.220.63.183:8012/mail/notificarKUENuevo";
 		
 		////////////   URL LOCAL /////////////////
 //		static final String URL_GET_USER_EMPRESA = "http://localhost:8010/userEmpresaRead";

@@ -143,6 +143,38 @@ private UserEmpresaDAO userEmpresaDAO;
 		
 		return resultVO;
 	}
+	
+	@Override
+	public ResultVO userEmpresaUpdate(ValoresJsonVO valoresJsonVO) {
+		try {
+			String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
+			logger.info(valoresJsonVO.getValoresFinales());
+			UserEmpresaEntity userEmpresaEntity = userEmpresaDAO.findOne(valoresRegistro[0]);
+			if(userEmpresaEntity.getIdUserEmpresa()!=null) {	
+				userEmpresaEntity.setNombreRegistro(valoresRegistro[1]);
+				userEmpresaEntity.setApellidoRegistro(valoresRegistro[2]);
+				userEmpresaEntity.setEmailRegistro(valoresRegistro[3]);
+				userEmpresaEntity.setTelefonoRegistro(valoresRegistro[4]);
+				userEmpresaEntity.setUsuarioRegistro(valoresRegistro[5]);
+				userEmpresaEntity.setPassRegistro(valoresRegistro[6]);
+				userEmpresaEntity.setMessageRegistro(valoresRegistro[7]);
+				
+				userEmpresaDAO.save(userEmpresaEntity);
+				resultVO.setCodigo(0);
+				resultVO.setMensaje("Usuario Edicion");
+			}
+			else {
+				resultVO.setCodigo(99);
+				resultVO.setMensaje("Usuario NO Edicion - no concuerda Identidad de Usuario");
+			}
+				
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
+		
+		
+		return resultVO;
+	}
 
 	@Override
 	public ResultVO userEmpresaUpdate(String idUserEmpresa) {

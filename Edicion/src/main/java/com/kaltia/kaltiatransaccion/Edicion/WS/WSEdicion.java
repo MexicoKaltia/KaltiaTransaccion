@@ -93,13 +93,29 @@ public class WSEdicion {
 		return  userEmpresaService.userEmpresaReadList(idAction, idUserEmpresa);
 	}
 	
+//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+	@PostMapping("/updateUserEmpresa")
+	public  ResultVO updateUserEmpresa(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
+		EdicionUtil.printWSEdicion(valoresJsonVO, "/updateUserEmpresa");
+		try {
+			resultVO = userEmpresaService.userEmpresaUpdate(valoresJsonVO);
+			logger.info(resultVO.toString());
+		} catch (Exception e) {
+			resultVO.setCodigo(99);
+			resultVO.setMensaje("Error de ENLACE");
+		}
+		
+	return  resultVO;
+	}
+
+	
 
 
 //	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
 	@GetMapping("/registroUser2")
 	public  String registroUser2(@RequestParam("userSetup") String idUserEmpresa) {
 
-		EdicionUtil.printWSEdicion(new ValoresJsonVO(idUserEmpresa), "/edicionSeccion");
+		EdicionUtil.printWSEdicion(new ValoresJsonVO(idUserEmpresa), "/registroUser2");
 			resultVO = userEmpresaService.userEmpresaUpdate(idUserEmpresa);
 			logger.info(resultVO.toString());
 		return  "Status Usuario: " + idUserEmpresa + "-" + resultVO.getMensaje() + " \n \n Gracias por registrarte, en breve un asesor se pondrá en contacto";

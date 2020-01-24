@@ -26,7 +26,7 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 
-@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080", "http://localhost:8081", "*"})
+@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "https://kaltia.site", "https://www.kaltia.site", "https://kaltiacontrol.site", "https://www.kaltiacontrol.site", "http://localhost:8080", "*"})
 @RestController
 public class WSEdicion {
 
@@ -48,7 +48,13 @@ public class WSEdicion {
 	EmpresaEntity empresaEntity;
 
 	protected final Log logger = LogFactory.getLog(getClass());
-	private final String[] CORS = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","*"};
+	private final String[] CORS = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080","*"};
+//	@CrossOrigin(origins = CORS)
+	@GetMapping("/version")
+	public  String version() {
+		return  "23012020";
+	}
+
 
 //	@CrossOrigin(origins = CORS)
 	@PostMapping("/edicionSeccion")
@@ -68,7 +74,7 @@ public class WSEdicion {
 		return  resultVO;
 	}
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","*"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080","*"})
 	@PostMapping("/createUserEmpresa")
 	public  ResultVO createUserEmpresa(@RequestBody ValoresJsonVO valoresJsonVO) {
 
@@ -85,7 +91,7 @@ public class WSEdicion {
 		return  resultVO;
 	}
 	
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080", "http://localhost:8081","*"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080", "http://localhost:8081","*"})
 	@GetMapping("/readUserEmpresa/{idAction}/{idUserEmpresa}")
 	public  List<UserEmpresaEntity> readUserEmpresa(@PathVariable String idAction, @PathVariable String idUserEmpresa ) throws Exception {
 		EdicionUtil.printWSEdicion(new ValoresJsonVO(idUserEmpresa), "/readUserEmpresa");
@@ -93,7 +99,7 @@ public class WSEdicion {
 		return  userEmpresaService.userEmpresaReadList(idAction, idUserEmpresa);
 	}
 	
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@PostMapping("/updateUserEmpresa")
 	public  ResultVO updateUserEmpresa(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
 		EdicionUtil.printWSEdicion(valoresJsonVO, "/updateUserEmpresa");
@@ -111,7 +117,7 @@ public class WSEdicion {
 	
 
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@GetMapping("/registroUser2")
 	public  String registroUser2(@RequestParam("userSetup") String idUserEmpresa) {
 
@@ -121,7 +127,7 @@ public class WSEdicion {
 		return  "Status Usuario: " + idUserEmpresa + "-" + resultVO.getMensaje() + " \n \n Gracias por registrarte, en breve un asesor se pondrá en contacto";
 	}
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080", "http://localhost:8081", "http://localhost:8081"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080", "http://localhost:8081", "http://localhost:8081"})
 	@PostMapping("/deleteUserEmpresa")
 	public  ResultVO deleteUserEmpresa(@RequestBody ValoresJsonVO valoresJsonVO) {
 		EdicionUtil.printWSEdicion(valoresJsonVO, "/deleteUserEmpresa");
@@ -132,7 +138,7 @@ public class WSEdicion {
 	}
 
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@PostMapping("/ingresaUser")
 	public  ResultVO ingresaUser(@RequestBody ValoresJsonVO valoresJsonVO) {
 
@@ -150,7 +156,7 @@ public class WSEdicion {
 	}
 
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@GetMapping("/empresaRead")
 	public  EmpresaEntity empresaRead(@RequestParam("idEmpresa") String idEmpresa) {
 
@@ -160,7 +166,7 @@ public class WSEdicion {
 		return  empresaEntity;
 	}
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@PostMapping("/cita1")
 	public  ResultVO guardaCita1(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
 		EdicionUtil.printWSEdicion(valoresJsonVO, "/cita1");
@@ -169,7 +175,7 @@ public class WSEdicion {
 		return  resultVO;
 	}
 
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@PostMapping("/empresaModulosCreate")
 	public  ResultVO empresaCreate(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
 		EdicionUtil.printWSEdicion(valoresJsonVO, "/empresaModulosCreate");
@@ -177,7 +183,7 @@ public class WSEdicion {
 	}
 	
 	
-//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+//	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080"})
 	@PostMapping("/readCita")
 	public  ResultVO citaServiceRead(@RequestBody ValoresJsonVO valoresJsonVO) throws Exception {
 		EdicionUtil.printWSEdicion(valoresJsonVO, "/readCita");

@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kaltia.kaltiatransaccion.FileUpload.VO.ResultVO;
 
 @RestController
+@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "https://kaltia.site", "https://www.kaltia.site", "https://kaltiacontrol.site", "https://www.kaltiacontrol.site", "http://localhost:8080"})
 public class FileUploadWS {
 	
 
@@ -31,8 +33,13 @@ public class FileUploadWS {
 	@Autowired
 	private ResultVO resultVO;
 	
+	@GetMapping("/version")
+	public  String version() {
+		return  "23012020";
+	}
+
 	/* Metodo por RequestMapping */	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"})
+	
 	@RequestMapping(
             method = RequestMethod.POST, path = "/fileUpload/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
 		public ResultVO fileUpload(@PathVariable String idEmpresa, @RequestParam("uploadfile") MultipartFile uploadfile){

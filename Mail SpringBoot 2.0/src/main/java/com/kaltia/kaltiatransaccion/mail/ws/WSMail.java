@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ import com.kaltia.kaltiatransaccion.mail.vo.VOHora;
 import com.kaltia.kaltiatransaccion.mail.vo.ValoresJSONVO;
 
 @RestController
-@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
+@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "https://kaltia.site", "https://www.kaltia.site", "https://kaltiacontrol.site", "https://www.kaltiacontrol.site", "http://localhost:8080"})
 @RequestMapping("mail")
 public class WSMail {
 	
@@ -42,6 +43,12 @@ public class WSMail {
 		this.mailService = mailService;
 	}
 	
+	@GetMapping("/version")
+	public  String version() {
+		return  "23012020";
+	}
+
+	
 	@RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public VOHora getHora() {
@@ -50,7 +57,7 @@ public class WSMail {
 		//return "hora:"+serviceHora.hora(); 
 	}
 	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
+//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
 	@RequestMapping(method = RequestMethod.POST,path = "{envioMail}",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO envioMail(@RequestBody ValoresJSONVO valoresJSONVO) {
 		String inicio = serviceHora.hora();
@@ -72,7 +79,7 @@ public class WSMail {
 		return resultVO;
 	}
 	
-	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
+//	@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080","https://kaltia.xyz", "https://www.kaltia.xyz", "https://kaltiacontrol.xyz", "https://www.kaltiacontrol.xyz"})
 	@RequestMapping(method = RequestMethod.POST,path = "/cita1",consumes  = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultVO cita1(@RequestBody ValoresJSONVO valoresJSONVO) {
 

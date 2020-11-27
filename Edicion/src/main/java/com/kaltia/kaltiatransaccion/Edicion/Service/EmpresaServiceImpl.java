@@ -41,20 +41,20 @@ public class EmpresaServiceImpl implements EmpresaService {
 	@Override
 	public ResultVO empresaServiceCreateModulos(ValoresJsonVO valoresJsonVO) {
 		String idAction = valoresJsonVO.getAction();
-		logger.info("valoresJsonVO:"+valoresJsonVO.getValoresFinales());
-		String []valoresFinales = valoresJsonVO.getValoresFinales().split("\\++");
-		
-		if(!valoresFinales[0].equals("No Activo")) {
-			try {
-				citaEmpresaService.citaEmpresaServiceCreate(idAction, valoresFinales[0]);
-			} catch (Exception e) {
-				e.printStackTrace();
-				//logica por hay error en guardar los horarios
-			}
-			/*
-			 * Aqui puedo hacer algo mas con los modulos
-			 */
-		}
+//		logger.info("valoresJsonVO:"+valoresJsonVO.getValoresFinales());
+//		String []valoresFinales = valoresJsonVO.getValoresFinales().split("\\++");
+//		
+//		if(!valoresFinales[0].equals("No Activo")) {
+//			try {
+//				citaEmpresaService.citaEmpresaServiceCreate(idAction, valoresFinales[0]);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				//logica por hay error en guardar los horarios
+//			}
+//			/*
+//			 * Aqui puedo hacer algo mas con los modulos
+//			 */
+//		}
 		
 		
 		try {

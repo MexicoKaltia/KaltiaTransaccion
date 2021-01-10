@@ -34,9 +34,9 @@ public class BodyEntity {
 	@Column
 	private String bodySeccion8 ;
 	@Column
-	private String bodySeccion9 ;
+	private String bodyQRE ;
 	@Column
-	private String bodySeccion10 ;
+	private String bodyQRD;
 	@Column
 	private String bodySeccionArray1 ;
 	@Column
@@ -113,17 +113,11 @@ public class BodyEntity {
 	public void setBodySeccion8(String bodySeccion8) {
 		this.bodySeccion8 = bodySeccion8;
 	}
-	public String getBodySeccion9() {
-		return bodySeccion9;
+	public String getIdBody() {
+		return idBody;
 	}
-	public void setBodySeccion9(String bodySeccion9) {
-		this.bodySeccion9 = bodySeccion9;
-	}
-	public String getBodySeccion10() {
-		return bodySeccion10;
-	}
-	public void setBodySeccion10(String bodySeccion10) {
-		this.bodySeccion10 = bodySeccion10;
+	public void setIdBody(String idBody) {
+		this.idBody = idBody;
 	}
 	public String getBodySeccionArray1() {
 		return bodySeccionArray1;
@@ -167,6 +161,19 @@ public class BodyEntity {
 	public void setBodySeccionArray7(String bodySeccionArray7) {
 		this.bodySeccionArray7 = bodySeccionArray7;
 	}
+	public String getBodyQRE() {
+		return bodyQRE;
+	}
+	public void setBodyQRE(String bodyQRE) {
+		this.bodyQRE = bodyQRE;
+	}
+	public String getBodyQRD() {
+		return bodyQRD;
+	}
+	public void setBodyQRD(String bodyQRD) {
+		this.bodyQRD = bodyQRD;
+	}
+
 
 	
 

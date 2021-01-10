@@ -173,11 +173,11 @@ private FooterDAO footerDAO;
 			case "bodySeccion8":
 				bodyEntity.setBodySeccion8(valoresJsonVO.getValoresFinales());
 				break;
-			case "bodySeccion9":
-				bodyEntity.setBodySeccion9(valoresJsonVO.getValoresFinales());
+			case "bodySeccionQRE":
+				bodyEntity.setBodyQRE(valoresJsonVO.getValoresFinales());
 				break;
-			case "bodySeccion10":
-				bodyEntity.setBodySeccion10(valoresJsonVO.getValoresFinales());
+			case "bodySeccionQRD":
+				bodyEntity.setBodyQRD(valoresJsonVO.getValoresFinales());
 				break;
 			}
 			try {

@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,8 +35,8 @@ public class FileUploadWS {
 	private ResultVO resultVO;
 	
 	@GetMapping("/version")
-	public  String version() {
-		return  "23012020";
+	public  LocalDateTime  version() {
+		return  LocalDateTime.now();
 	}
 
 	/* Metodo por RequestMapping */	

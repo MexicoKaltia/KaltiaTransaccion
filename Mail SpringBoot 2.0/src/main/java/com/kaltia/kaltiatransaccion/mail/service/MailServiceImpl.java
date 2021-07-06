@@ -46,8 +46,8 @@ public class MailServiceImpl implements MailService{
 		String[] valoresFinales = valoresJSONVO.getValoresFinales().split("\\++");
 		logger.info("idUsuario:"+valoresFinales[0]);
 		logger.info("idEmpresa:"+valoresJSONVO.getIdEmpresa());
-		String body = 		"<div><h1>Bienvenido a "+valoresJSONVO.getIdEmpresa()+"</h1><p>Estimado "+valoresFinales[1]+ " "+ valoresFinales[2]+ " por razones de seguridad favor de dar click en el siguiente enlace para verificar autenticidad:<p/>"
-				            +"<a target='_blank' href='http://31.220.63.183:8010/registroUser2?userSetup="+valoresFinales[0]+"'>Ingrese Aqui</a> <p>En breve un asesor se pondrá en contacto. Gracias</p>"
+		String body = 		"<div><h1>Bienvenido a "+valoresJSONVO.getNombreCorto()+"</h1><p>Estimado "+valoresFinales[1]+ " por razones de seguridad favor de dar click en el siguiente enlace para verificar autenticidad:<p/>"
+				            +"<a target='_blank' href='http://129.146.252.2:8010/registroUser2?userSetup="+valoresFinales[0]+"'>Ingrese Aqui</a> <p>En breve un asesor se pondrá en contacto. Gracias</p>"
 				            +"</div></body></html>";
  
 		
@@ -59,7 +59,7 @@ public class MailServiceImpl implements MailService{
 		mailVO.setUserDestino(valoresFinales[3]);
 //		mailVO.setUserOrigen();
 		
-		resultVO = mandarCorreo(mailVO);
+		resultVO = mandarCorreo(mailVO, valoresJSONVO.getNombreCorto());
 		
 		
 		return resultVO;
@@ -88,11 +88,11 @@ public class MailServiceImpl implements MailService{
 
 
 
-	 public ResultVO mandarCorreo(MailVO mailVO) {
+	 public ResultVO mandarCorreo(MailVO mailVO, String nombreCorto) {
 		 
 		 logger.info("Correo Destino: "+mailVO.getUserDestino());
 	  // El correo gmail de envío
-	  String correoEnvia = "notificaciones@kaltiaservicios.tech";
+	  String correoEnvia = "notificacion@kaltiaservicios.com";
 	  String claveCorreo = "H00W6odR";
 	 
 	  // La configuración para enviar correo
@@ -114,7 +114,7 @@ public class MailServiceImpl implements MailService{
 	   MimeMessage mimeMessage = new MimeMessage(session);
 	 
 	   // Agregar quien envía el correo
-	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Kaltia NombreEmpresa"));
+	   mimeMessage.setFrom(new InternetAddress(correoEnvia, nombreCorto+" notifica"));
 	 
 	   // Los destinatarios
 	   InternetAddress[] internetAddresses = { new InternetAddress(mailVO.getUserDestino()) };

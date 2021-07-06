@@ -4,16 +4,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ValoresJsonVO {
+public ValoresJsonVO() {}
 	
-	public ValoresJsonVO() {}
-	
-	private String action;	
+	private String action;
 	private String IdEmpresa;
 	private String seccion;
+	private String nombreCorto;
 	private String valoresFinales;
 	private String valoresAuxiliares;
 	private String string;
-		
+	
 	public ValoresJsonVO(String action, String idEmpresa, String seccion, String valoresFinales,
 			String valoresAuxiliares, String string) {
 		super();
@@ -31,9 +31,9 @@ public class ValoresJsonVO {
 
 	@Override
 	public String toString() {
-		return "ValoresJsonVO [action=" + action + ", IdEmpresa=" + IdEmpresa + ", seccion=" + seccion
-				+ ", valoresFinales=" + valoresFinales + ", valoresAuxiliares=" + valoresAuxiliares + ", string="
-				+ string + "]";
+		return "ValoresJSONVO [action=" + action + ", IdEmpresa=" + IdEmpresa + ", seccion=" + seccion
+				+ ", nombreCorto=" + nombreCorto + ", valoresFinales=" + valoresFinales + ", valoresAuxiliares="
+				+ valoresAuxiliares + ", string=" + string + "]";
 	}
 
 	public String getString() {
@@ -44,12 +44,7 @@ public class ValoresJsonVO {
 		this.string = string;
 	}
 
-	public String getValoresAuxiliares() {
-		return valoresAuxiliares;
-	}
-	public void setValoresAuxiliares(String valoresAuxiliares) {
-		this.valoresAuxiliares = valoresAuxiliares;
-	}
+	
 	public String getAction() {
 		return action;
 	}
@@ -74,6 +69,21 @@ public class ValoresJsonVO {
 	public void setValoresFinales(String valoresFinales) {
 		this.valoresFinales = valoresFinales;
 	}
+	public String getValoresAuxiliares() {
+		return valoresAuxiliares;
+	}
+	public void setValoresAuxiliares(String valoresAuxiliares) {
+		this.valoresAuxiliares = valoresAuxiliares;
+	}
+
+	public String getNombreCorto() {
+		return nombreCorto;
+	}
+
+	public void setNombreCorto(String nombreCorto) {
+		this.nombreCorto = nombreCorto;
+	}
+
 	
 	
 

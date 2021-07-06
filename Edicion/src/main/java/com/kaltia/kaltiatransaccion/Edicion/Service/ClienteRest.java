@@ -5,6 +5,6 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 
 public interface ClienteRest {
 	
-	public ResultVO notificarKUENuevo(UserEmpresaEntity userEmpresaEntity);
+	public ResultVO notificarKUENuevo(UserEmpresaEntity userEmpresaEntity, String nombreCorto);
 
 }

@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kaltia.kaltiatransaccion.FileUpload.VO.ResultVO;
 
 @RestController
-@CrossOrigin(origins = "*")//{"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "https://kaltia.site", "https://www.kaltia.site", "https://kaltiacontrol.site", "https://www.kaltiacontrol.site", "http://localhost:8080"})
+@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz",  "*"})
 public class FileUploadWS {
 	
 

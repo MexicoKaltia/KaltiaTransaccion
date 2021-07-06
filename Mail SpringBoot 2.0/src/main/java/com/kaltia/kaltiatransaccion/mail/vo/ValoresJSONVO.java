@@ -10,6 +10,7 @@ public class ValoresJSONVO {
 	private String action;
 	private String IdEmpresa;
 	private String seccion;
+	private String nombreCorto;
 	private String valoresFinales;
 	private String valoresAuxiliares;
 	private String string;
@@ -31,9 +32,9 @@ public class ValoresJSONVO {
 
 	@Override
 	public String toString() {
-		return "ValoresJsonVO [action=" + action + ", IdEmpresa=" + IdEmpresa + ", seccion=" + seccion
-				+ ", valoresFinales=" + valoresFinales + ", valoresAuxiliares=" + valoresAuxiliares + ", string="
-				+ string + "]";
+		return "ValoresJSONVO [action=" + action + ", IdEmpresa=" + IdEmpresa + ", seccion=" + seccion
+				+ ", nombreCorto=" + nombreCorto + ", valoresFinales=" + valoresFinales + ", valoresAuxiliares="
+				+ valoresAuxiliares + ", string=" + string + "]";
 	}
 
 	public String getString() {
@@ -74,6 +75,14 @@ public class ValoresJSONVO {
 	}
 	public void setValoresAuxiliares(String valoresAuxiliares) {
 		this.valoresAuxiliares = valoresAuxiliares;
+	}
+
+	public String getNombreCorto() {
+		return nombreCorto;
+	}
+
+	public void setNombreCorto(String nombreCorto) {
+		this.nombreCorto = nombreCorto;
 	}
 
 	

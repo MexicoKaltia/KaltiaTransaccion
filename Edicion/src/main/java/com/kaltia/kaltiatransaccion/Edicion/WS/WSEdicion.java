@@ -124,7 +124,8 @@ public class WSEdicion {
 		EdicionUtil.printWSEdicion(new ValoresJsonVO(idUserEmpresa), "/registroUser2");
 			resultVO = userEmpresaService.userEmpresaUpdate(idUserEmpresa);
 			logger.info(resultVO.toString());
-		return  "Status Usuario: " + idUserEmpresa + "-" + resultVO.getMensaje() + " \n \n Gracias por registrarte, en breve un asesor se pondrá en contacto";
+		return  "Status Usuario: " + idUserEmpresa.substring(idUserEmpresa.indexOf("--")+2, idUserEmpresa.length()) +
+				"-" + resultVO.getMensaje() + " \n \n Gracias por registrarte, en breve un asesor se pondrá en contacto";
 	}
 
 //	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080", "http://localhost:8081", "http://localhost:8081"})

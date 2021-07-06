@@ -44,7 +44,7 @@ private UserEmpresaDAO userEmpresaDAO;
 			if(valoresJsonVO.getValoresFinales()!= null && !valoresJsonVO.getValoresFinales().equals("")) {
 				
 				String[] valoresRegistro = valoresJsonVO.getValoresFinales().split("\\++");
-				userEmpresaEntity.setIdUserEmpresa(valoresJsonVO.getAction()+valoresRegistro[4]);
+				userEmpresaEntity.setIdUserEmpresa(valoresJsonVO.getAction()+"--"+valoresRegistro[4]);
 				userEmpresaEntity.setIdEmpresa(valoresJsonVO.getIdEmpresa());
 				userEmpresaEntity.setActionRegistro(valoresJsonVO.getAction());
 				userEmpresaEntity.setNombreRegistro(valoresRegistro[0]);
@@ -53,7 +53,8 @@ private UserEmpresaDAO userEmpresaDAO;
 				userEmpresaEntity.setTelefonoRegistro(valoresRegistro[3]);
 				userEmpresaEntity.setUsuarioRegistro(valoresRegistro[4]);
 				userEmpresaEntity.setPassRegistro(valoresRegistro[5]);
-				userEmpresaEntity.setStatusRegistro("inicio");
+				userEmpresaEntity.setMessageRegistro(valoresRegistro[6]);
+				userEmpresaEntity.setStatusRegistro("Usuario nuevo registro");
 				
 				userEmpresaDAO.save(userEmpresaEntity);
 				
@@ -69,7 +70,7 @@ private UserEmpresaDAO userEmpresaDAO;
 				/*
 				 * Envia correo de validacion UserEmpresaCreate
 				 */
-				resultVO = (ResultVO)clienteRestImpl.notificarKUENuevo(userEmpresaEntity);
+				resultVO = (ResultVO)clienteRestImpl.notificarKUENuevo(userEmpresaEntity, valoresJsonVO.getNombreCorto());
 				resultVO.setMensaje("Create UserEmpresa " +resultVO.getMensaje()+"\n Favor verificar su correo para validar acceso");
 			}catch(Exception e) {
 				resultVO.setCodigo(99);
@@ -180,8 +181,8 @@ private UserEmpresaDAO userEmpresaDAO;
 	public ResultVO userEmpresaUpdate(String idUserEmpresa) {
 		try {
 			UserEmpresaEntity userEmpresaEntity = userEmpresaDAO.findOne(idUserEmpresa);
-			if(userEmpresaEntity.getStatusRegistro().equals("inicio")) {
-				userEmpresaEntity.setStatusRegistro("activo");
+			if(userEmpresaEntity.getStatusRegistro().equals("Usuario nuevo registro")) {
+				userEmpresaEntity.setStatusRegistro("Usuario mail confirmado");
 				userEmpresaDAO.save(userEmpresaEntity);
 				resultVO.setCodigo(0);
 				resultVO.setMensaje("Usuario Activo");

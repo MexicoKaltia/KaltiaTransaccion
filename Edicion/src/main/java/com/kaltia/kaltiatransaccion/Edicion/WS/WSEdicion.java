@@ -1,11 +1,14 @@
 package com.kaltia.kaltiatransaccion.Edicion.WS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -193,6 +196,31 @@ public class WSEdicion {
 
 
 	
+//	
+//	@GetMapping(value ="/consultaVideos")
+////	public  List<JSONObject> getVideos(@PathVariable String idEmpresa) {
+//	public  List<EmpresaEntity> consultaVideos(@RequestParam("idEmpresa")  String idEmpresa, @RequestParam("order")  String order) {
+//	
+//		logger.info("----Inicio metodo getVideos----0");
+//		empresaEntity = new EmpresaEntity();
+//		empresaEntity.setIdEmpresa("hola");
+//		List<EmpresaEntity> listEmpresas = new ArrayList<EmpresaEntity>();
+////		ArrayList<JSONObject> arrayJson = new ArrayList();
+////		JSONObject json = new JSONObject();
+////		json.put("videoTitulo", "titulo1");
+////		json.put("videoURL", "url1");
+////		arrayJson.add(json);
+////		
+////		JSONObject json2 = new JSONObject();
+////		json2.put("videoTitulo", "titulo2");
+////		json2.put("videoURL", "url2");
+////		arrayJson.add(json2);
+////		
+////		JSONObject json3 = new JSONObject();
+////		json3.put("json3", arrayJson);
+//		
+//		return empresaEntity;
+//	}
 
 
 

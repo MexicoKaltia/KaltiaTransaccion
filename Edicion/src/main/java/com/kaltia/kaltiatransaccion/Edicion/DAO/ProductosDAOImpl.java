@@ -10,11 +10,15 @@ import javax.persistence.Query;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kaltia.kaltiatransaccion.Edicion.VO.ChatEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultDAOVO;
+import com.kaltia.kaltiatransaccion.Edicion.VO.TarjetaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.VideoEntity;
 
 
@@ -86,7 +90,103 @@ public class ProductosDAOImpl implements IProductosDAO {
 	}
 	
 	
+	/*
+	 * Modulo Chat
+	 */
+	@Override
+	@Transactional
+	public ResultDAOVO addChatDAO(ChatEntity chatEntity) {
+		logger.info("-----------"+chatEntity.getNumeroChat());
+	     
+		try {
+		  em.merge(chatEntity);
+	      
+	      resultDAOVO.setCode("00");
+	      resultDAOVO.setMessage("Chat guardado con exito ");
+	      
+		}catch(Exception e) {
+			resultDAOVO.setCode("99");
+			resultDAOVO.setMessage(e.toString());
+			e.printStackTrace();
+		}finally {
+			em.close( );
+		}
+		return resultDAOVO;
+	}
 	
+	@Override
+	public ResultDAOVO getChatDAO(String idEmpresa) {
+		
+		Query query=null;
+		query = em.createNamedQuery("find chat by idEmpresa");
+		query.setParameter("id", idEmpresa);
+      ChatEntity chatEntity = new ChatEntity ();
+      try {
+    	  chatEntity=  (ChatEntity) query.getSingleResult();
+    	  resultDAOVO.setJson(chatToJSON(chatEntity));
+    	  resultDAOVO.setMessage("Exito en consulta de chat");
+    	  resultDAOVO.setCode("00");
+      }catch(Exception e){
+    	  resultDAOVO.setMessage("Error en consulta de chat");
+    	  resultDAOVO.setCode("99");
+    	  e.printStackTrace();
+      }
+      return resultDAOVO;
+	}
+	
+	@Override
+	public ResultDAOVO getTarjetaProductosDAO(String idEmpresa) {
+		
+		Query query=null;
+		query = em.createNamedQuery("find tarjetaProductos by idEmpresa");
+		query.setParameter("id", idEmpresa);
+      TarjetaEntity tarjetaEntity = new TarjetaEntity ();
+      try {
+    	  tarjetaEntity=  (TarjetaEntity) query.getSingleResult();
+    	  resultDAOVO.setJson(chatToJSONTarjeta(tarjetaEntity));
+    	  resultDAOVO.setMessage("Exito en consulta de chat");
+    	  resultDAOVO.setCode("00");
+      }catch(Exception e){
+    	  resultDAOVO.setMessage("Error en consulta de chat");
+    	  resultDAOVO.setCode("99");
+    	  e.printStackTrace();
+      }
+      return resultDAOVO;
+	}
+	
+	
+	
+	private JSONObject chatToJSONTarjeta(TarjetaEntity tarjetaEntity) {
+		
+		JSONObject json = new JSONObject();
+		json.put("idEmpresa", tarjetaEntity.getIdEmpresa());
+		json.put("idAction", tarjetaEntity.getIdAction());
+		json.put("tarjetaProductos", stringToJSONParser(tarjetaEntity.getTarjetaProductos()));
+		return json;
+	}
+	
+	private JSONObject stringToJSONParser(String tarjetaProductos) {
+		JSONParser parser = new JSONParser();
+		JSONObject json = null;
+		try {
+			json = (JSONObject) parser.parse(tarjetaProductos);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	
+	
+	
+	private JSONObject chatToJSON(ChatEntity chatEntity) {
+		JSONObject json = new JSONObject();
+		json.put("idEmpresa", chatEntity.getIdEmpresa());
+		json.put("idAction", chatEntity.getIdAction());
+		json.put("numeroChat", chatEntity.getNumeroChat());
+		return json;
+	}
 	/*
 	 * privates
 	 */
@@ -104,4 +204,7 @@ public class ProductosDAOImpl implements IProductosDAO {
 		}
 		return arrayJson;
 	}
+
+
+	
 }

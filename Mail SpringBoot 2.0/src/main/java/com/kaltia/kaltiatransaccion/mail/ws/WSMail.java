@@ -22,7 +22,7 @@ import com.kaltia.kaltiatransaccion.mail.vo.VOHora;
 import com.kaltia.kaltiatransaccion.mail.vo.ValoresJSONVO;
 
 @RestController
-@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz",  "*"})
+@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz"})
 @RequestMapping("mail")
 public class WSMail {
 	

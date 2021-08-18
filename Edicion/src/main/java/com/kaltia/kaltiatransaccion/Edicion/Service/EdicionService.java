@@ -9,5 +9,6 @@ public interface EdicionService {
 	public ResultVO edicionServiceRead();
 	public ResultVO edicionServiceUpdate(ValoresJsonVO valoresJsonVO);
 	public ResultVO edicionServiceDelete();
+	public ResultVO edicionServiceUpdateJson(ValoresJsonVO valoresJsonVO);
 
 }

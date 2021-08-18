@@ -1,5 +1,6 @@
 package com.kaltia.kaltiatransaccion.Edicion.WS;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import com.kaltia.kaltiatransaccion.Edicion.VO.UserEmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 
-@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz",  "*"})
+@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "*"})
 @RestController
 public class WSEdicion {
 
@@ -51,11 +52,11 @@ public class WSEdicion {
 	EmpresaEntity empresaEntity;
 
 	protected final Log logger = LogFactory.getLog(getClass());
-	private final String[] CORS = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080","*"};
+	private final String[] CORS = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz", "http://localhost:8080"};
 //	@CrossOrigin(origins = CORS)
 	@GetMapping("/version")
-	public  String version() {
-		return  "23012020";
+	public  LocalDateTime version() {
+		return  LocalDateTime.now();
 	}
 
 
@@ -76,6 +77,24 @@ public class WSEdicion {
 			logger.info(resultVO.toString());
 		return  resultVO;
 	}
+	
+	@PostMapping("/edicionSeccionJson")
+	public  ResultVO updateSeccionJson(@RequestBody ValoresJsonVO valoresJsonVO) {
+
+		/* ValoresJsonVO
+		 *
+		 * {action: "bronea",
+		 * idEmpresa: "EUM",
+		 * seccion: "headerSeccion1",
+		 * valoresFinales: "ACERCA DE NOSOTROS.null++CONTACTO.null++REGISTRO.null++INGRESA.null"}
+		 */
+		EdicionUtil.printWSEdicion(valoresJsonVO, "/edicionSeccionJSON");
+			
+			resultVO = edicionService.edicionServiceUpdateJson(valoresJsonVO);
+			logger.info(resultVO.toString());
+		return  resultVO;
+	}
+
 
 //	@CrossOrigin(origins = {"http://kaltia.site", "http://www.kaltia.site", "http://kaltiacontrol.site", "http://www.kaltiacontrol.site", "http://localhost:8080","*"})
 	@PostMapping("/createUserEmpresa")
@@ -193,36 +212,6 @@ public class WSEdicion {
 		EdicionUtil.printWSEdicion(valoresJsonVO, "/readCita");
 		return  citaEmpresaService.citaEmpresaServiceRead(valoresJsonVO.getAction());
 	}
-
-
-	
-//	
-//	@GetMapping(value ="/consultaVideos")
-////	public  List<JSONObject> getVideos(@PathVariable String idEmpresa) {
-//	public  List<EmpresaEntity> consultaVideos(@RequestParam("idEmpresa")  String idEmpresa, @RequestParam("order")  String order) {
-//	
-//		logger.info("----Inicio metodo getVideos----0");
-//		empresaEntity = new EmpresaEntity();
-//		empresaEntity.setIdEmpresa("hola");
-//		List<EmpresaEntity> listEmpresas = new ArrayList<EmpresaEntity>();
-////		ArrayList<JSONObject> arrayJson = new ArrayList();
-////		JSONObject json = new JSONObject();
-////		json.put("videoTitulo", "titulo1");
-////		json.put("videoURL", "url1");
-////		arrayJson.add(json);
-////		
-////		JSONObject json2 = new JSONObject();
-////		json2.put("videoTitulo", "titulo2");
-////		json2.put("videoURL", "url2");
-////		arrayJson.add(json2);
-////		
-////		JSONObject json3 = new JSONObject();
-////		json3.put("json3", arrayJson);
-//		
-//		return empresaEntity;
-//	}
-
-
 
 
 }

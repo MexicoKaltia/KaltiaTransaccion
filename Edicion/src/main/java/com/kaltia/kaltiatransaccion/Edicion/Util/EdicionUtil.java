@@ -20,4 +20,10 @@ public class  EdicionUtil {
 		logger.info(":"+valoresJsonVO.toString());  //OK
 	}
 
+
+	public static void printWSEdicionJson(ValoresJsonVO valoresJsonVO, String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

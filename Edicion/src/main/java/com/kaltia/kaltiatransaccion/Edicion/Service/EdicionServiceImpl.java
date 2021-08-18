@@ -1,5 +1,7 @@
 package com.kaltia.kaltiatransaccion.Edicion.Service;
 
+import java.time.LocalDateTime;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,13 @@ import com.kaltia.kaltiatransaccion.Edicion.DAO.BodyDAO;
 import com.kaltia.kaltiatransaccion.Edicion.DAO.EmpresaDAO;
 import com.kaltia.kaltiatransaccion.Edicion.DAO.FooterDAO;
 import com.kaltia.kaltiatransaccion.Edicion.DAO.HeaderDAO;
+import com.kaltia.kaltiatransaccion.Edicion.DAO.TarjetaDAO;
 import com.kaltia.kaltiatransaccion.Edicion.VO.BodyEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.EmpresaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.FooterEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.HeaderEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ResultVO;
+import com.kaltia.kaltiatransaccion.Edicion.VO.TarjetaEntity;
 import com.kaltia.kaltiatransaccion.Edicion.VO.ValoresJsonVO;
 
 @Service("edicionServiceImpl")
@@ -36,6 +40,10 @@ private BodyDAO bodyDAO;
 @Autowired
 @Qualifier("footerDAO")
 private FooterDAO footerDAO;
+@Autowired
+@Qualifier("tarjetaDAO")
+private TarjetaDAO tarjetaDAO;
+
 
 	@Override
 	public ResultVO edicionServiceCreate() {
@@ -242,12 +250,53 @@ private FooterDAO footerDAO;
 		logger.info(resultVO.getResponse());
 		return resultVO;
 	}
+	
+	
+	@Override
+	public ResultVO edicionServiceUpdateJson(ValoresJsonVO valoresJsonVO) {
+		TarjetaEntity tarjetaEntity ;
+		try {
+			
+			tarjetaEntity = tarjetaDAO.findOne(valoresJsonVO.getIdEmpresa());
+			if(tarjetaEntity == null) {
+				tarjetaEntity = new TarjetaEntity();
+				logger.info("nueva tarjeta Empresa");
+				tarjetaEntity.setIdEmpresa(valoresJsonVO.getIdEmpresa());
+				tarjetaEntity.setIdAction(valoresJsonVO.getAction());
+				tarjetaEntity.setTarjetaProductos(valoresJsonVO.getValoresJson().toString());
+				tarjetaEntity.setStatus("create");
+				tarjetaEntity.setUserCreate(valoresJsonVO.getNombreCorto());
+				tarjetaEntity.setTimestamp(LocalDateTime.now().toString());
+				
+				tarjetaDAO.save(tarjetaEntity);
+					
+			}else {
+				tarjetaEntity.setTarjetaProductos(valoresJsonVO.getValoresJson().toString());
+				tarjetaEntity.setStatus("update");
+				tarjetaEntity.setUserCreate(valoresJsonVO.getString());
+				tarjetaEntity.setTimestamp(LocalDateTime.now().toString());
+				tarjetaDAO.save(tarjetaEntity);
+			}
+			resultVO.setCodigo(0);
+			resultVO.setMensaje("Actualizacion Tarjeta Productos : "+ valoresJsonVO.getNombreCorto()+ ",   EXITOSA");
+		} catch (Exception e) {
+			resultVO.setCodigo(99);
+			resultVO.setMensaje("Falla Tarjeta Productos : "+ valoresJsonVO.getNombreCorto());
+			e.printStackTrace();
+		}
+		
+		
+		
+		return resultVO;
+	}
+
 
 	@Override
 	public ResultVO edicionServiceDelete() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	
 

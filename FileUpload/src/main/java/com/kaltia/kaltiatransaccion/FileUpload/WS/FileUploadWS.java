@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kaltia.kaltiatransaccion.FileUpload.VO.ResultVO;
 
 @RestController
-@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz",  "*"})
+@CrossOrigin(origins = {"http://kaltia.xyz", "http://www.kaltia.xyz", "http://kaltiacontrol.xyz", "http://www.kaltiacontrol.xyz"})
 public class FileUploadWS {
 	
 
@@ -40,7 +40,7 @@ public class FileUploadWS {
 	}
 
 	/* Metodo por RequestMapping */	
-	
+	@CrossOrigin(origins = {"*"})	
 	@RequestMapping(
             method = RequestMethod.POST, path = "/fileUpload/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
 		public ResultVO fileUpload(@PathVariable String idEmpresa, @RequestParam("uploadfile") MultipartFile uploadfile){

@@ -1,5 +1,6 @@
 package com.kaltia.kaltiatransaccion.Edicion.VO;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,8 +14,9 @@ public ValoresJsonVO() {}
 	private String valoresFinales;
 	private String valoresAuxiliares;
 	private String string;
+	private JSONObject valoresJson;
 	
-	public ValoresJsonVO(String action, String idEmpresa, String seccion, String valoresFinales,
+		public ValoresJsonVO(String action, String idEmpresa, String seccion, String valoresFinales,
 			String valoresAuxiliares, String string) {
 		super();
 		this.action = action;
@@ -85,6 +87,14 @@ public ValoresJsonVO() {}
 	}
 
 	
+	public JSONObject getValoresJson() {
+		return valoresJson;
+	}
+
+	public void setValoresJson(JSONObject valoresJson) {
+		this.valoresJson = valoresJson;
+	}
+
 	
 
 }

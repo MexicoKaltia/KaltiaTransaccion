@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-@Entity(name="tw_videos")
+@Entity(name="tw_chat")
 @NamedQueries({
 //	@NamedQuery(query ="Select a from tw_chat a where a.idEmpresa= :id", name = "find chat by idEmpresa")
 	

@@ -62,6 +62,7 @@ private UserEmpresaDAO userEmpresaDAO;
 				resultVO.setMensaje("Create UserEmpresa Exito");
 			}
 		}catch(Exception e) {
+			logger.info(e);
 			resultVO.setCodigo(99);
 			resultVO.setMensaje("Error Create UserEmpresa");
 		}
